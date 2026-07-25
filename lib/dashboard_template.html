@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiografía de un Mundial — Portafolio de Data Science Deportivo</title>
+<meta property="og:title" content="Radiografía de un Mundial — Portafolio de Data Science Deportivo">
+<meta property="og:description" content="Los 104 partidos del Mundial 2026 analizados con SQL, Python y Machine Learning. Top 20 goleadores, ranking de equipos, y un modelo predictivo.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dxriom.github.io/world_cup_2026/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Radiografía de un Mundial — Portafolio de Data Science Deportivo">
+<meta name="twitter:description" content="104 partidos del Mundial 2026 analizados con SQL, Python y Machine Learning.">
+<meta name="description" content="Los 104 partidos del Mundial 2026 analizados con SQL, Python y Machine Learning.">
+<meta name="author" content="DxrioM">
+<link rel="canonical" href="https://dxriom.github.io/world_cup_2026/">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script>__CHARTJS_LIB__</script>
+<style>
+:root{
+  --bg:#0e2919;
+  --bg-elevated:#153524;
+  --bg-card:#1b422e;
+  --border:#2c5b41;
+  --text:#F2EFE3;
+  --text2:#A7C4AE;
+  --muted:#6E8F77;
+  --gold:#E0B23D;
+  --red:#C4453F;
+  --blue:#3E90B0;
+  --violet:#9B7FC4;
+  --lime:#9BC24A;
+  --radius:10px;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg); color:var(--text); font-family:'Inter',sans-serif;
+  line-height:1.55; -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(ellipse at top left, rgba(224,178,61,0.06), transparent 45%),
+    radial-gradient(ellipse at bottom right, rgba(62,144,176,0.06), transparent 45%);
+}
+h1,h2,h3{font-family:'Bebas Neue',sans-serif; font-weight:400; letter-spacing:0.01em;}
+.mono{font-family:'JetBrains Mono',monospace;}
+.container{max-width:1180px; margin:0 auto; padding:0 28px;}
+a{color:inherit;}
+
+/* NAV */
+nav{position:sticky; top:0; z-index:100; background:rgba(14,41,25,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
+nav .container{display:flex; align-items:center; justify-content:space-between; height:64px;}
+.logo{display:flex; align-items:center; gap:10px; font-family:'Bebas Neue'; font-size:22px; letter-spacing:0.02em;}
+.logo .ball{font-size:20px;}
+.navlinks{list-style:none; display:flex; gap:22px;}
+nav a.navlink{font-size:13px; color:var(--text2); text-decoration:none; text-transform:uppercase; letter-spacing:0.04em; transition:color .15s;}
+nav a.navlink:hover{color:var(--gold);}
+@media(max-width:900px){.navlinks{display:none;}}
+
+/* HERO */
+.hero{padding:70px 0 30px; position:relative; overflow:hidden;}
+.pitch-arc{position:absolute; top:-180px; right:-180px; width:420px; height:420px; border:2px solid rgba(242,239,227,0.06); border-radius:50%; pointer-events:none;}
+.pitch-arc::after{content:''; position:absolute; inset:60px; border:2px solid rgba(242,239,227,0.05); border-radius:50%;}
+.eyebrow{
+  font-family:'JetBrains Mono'; font-size:12px; text-transform:uppercase; letter-spacing:.14em;
+  color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:10px;
+}
+.eyebrow::before{content:''; width:22px; height:1px; background:var(--gold);}
+.hero h1{font-size:clamp(46px,7vw,84px); line-height:0.95; max-width:820px; margin-bottom:20px; text-transform:uppercase;}
+.hero h1 em{font-style:normal; color:var(--gold);}
+.hero p{font-size:17px; color:var(--text2); max-width:600px; margin-bottom:8px;}
+
+/* SCOREBOARD */
+.scoreboard{margin-top:44px; display:flex; gap:2px; flex-wrap:wrap; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border);}
+.score-cell{flex:1; min-width:130px; background:var(--bg-elevated); padding:20px 18px; text-align:center; border-right:1px solid var(--border);}
+.score-cell:last-child{border-right:none;}
+.score-cell .num{font-family:'JetBrains Mono'; font-size:34px; font-weight:700; color:var(--gold); letter-spacing:-0.02em;}
+.score-cell .lbl{font-size:10.5px; color:var(--text2); text-transform:uppercase; letter-spacing:.08em; margin-top:4px;}
+
+/* SECTIONS */
+section{padding:64px 0;}
+section.alt{background:var(--bg-elevated); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
+.section-head{margin-bottom:34px; max-width:660px;}
+.section-head .eyebrow-sm{font-family:'JetBrains Mono'; font-size:11.5px; color:var(--gold); text-transform:uppercase; letter-spacing:.1em; margin-bottom:8px;}
+.section-head h2{font-size:clamp(28px,3.6vw,40px); margin-bottom:10px; text-transform:uppercase;}
+.section-head p{color:var(--text2); font-size:15px;}
+
+/* PIPELINE */
+.pipeline{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
+@media(max-width:900px){.pipeline{grid-template-columns:1fr 1fr;}}
+@media(max-width:520px){.pipeline{grid-template-columns:1fr;}}
+.stage{background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:20px 18px; border-top:3px solid var(--gold);}
+.stage .idx{font-family:'JetBrains Mono'; font-size:12px; color:var(--gold); margin-bottom:12px;}
+.stage h3{font-size:19px; margin-bottom:8px; letter-spacing:0.01em;}
+.stage p{font-size:12.5px; color:var(--text2); margin-bottom:12px; min-height:60px;}
+.tags{display:flex; flex-wrap:wrap; gap:5px;}
+.tag{font-family:'JetBrains Mono'; font-size:10px; padding:3px 7px; background:var(--bg-elevated); border:1px solid var(--border); border-radius:5px; color:var(--text2);}
+
+/* GRID CARDS */
+.grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+.grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+.card{background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px;}
+.card h3{font-size:20px; margin-bottom:2px; text-transform:uppercase;}
+.card .sub{font-size:12px; color:var(--muted); margin-bottom:16px;}
+.card canvas{max-height:280px;}
+.chart-error{font-size:12.5px; color:var(--muted); padding:30px 0; text-align:center;}
+
+.legend{display:flex; flex-wrap:wrap; gap:14px; margin-top:14px;}
+.legend-item{display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--text2);}
+.legend-dot{width:9px; height:9px; border-radius:50%;}
+
+/* FILTROS */
+.filter-bar{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;}
+.filter-btn{
+  font-family:'JetBrains Mono'; font-size:11.5px; padding:7px 13px; border-radius:20px;
+  border:1px solid var(--border); background:var(--bg-card); color:var(--text2); cursor:pointer;
+  transition:all .15s;
+}
+.filter-btn:hover{border-color:var(--gold); color:var(--text);}
+.filter-btn.active{background:var(--gold); color:var(--bg); border-color:var(--gold); font-weight:700;}
+select.filter-select{
+  font-family:'JetBrains Mono'; font-size:12px; padding:8px 12px; border-radius:8px;
+  border:1px solid var(--border); background:var(--bg-card); color:var(--text); cursor:pointer;
+}
+
+/* CROMO CARDS (jugadores) */
+.cromo-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:14px;}
+.cromo{
+  background:linear-gradient(160deg, var(--bg-card), var(--bg-elevated));
+  border:1px solid var(--border); border-radius:12px; padding:16px 14px; position:relative;
+  border-top:4px solid var(--gold); transition:transform .15s;
+}
+.cromo:hover{transform:translateY(-3px);}
+.cromo .rank-badge{
+  position:absolute; top:10px; right:10px; font-family:'JetBrains Mono'; font-size:10px;
+  color:var(--muted);
+}
+.cromo .avatar{
+  width:54px; height:54px; border-radius:50%; background:var(--bg-elevated);
+  border:2px solid var(--gold); display:flex; align-items:center; justify-content:center;
+  font-family:'Bebas Neue'; font-size:20px; color:var(--gold); margin-bottom:10px;
+}
+.cromo .flag{font-size:22px; margin-bottom:6px;}
+.cromo .name{font-size:14.5px; font-weight:700; line-height:1.2; margin-bottom:2px;}
+.cromo .team{font-size:11px; color:var(--text2); margin-bottom:10px;}
+.cromo .stats{display:flex; gap:12px; border-top:1px dashed var(--border); padding-top:8px;}
+.cromo .stat{font-family:'JetBrains Mono';}
+.cromo .stat .v{font-size:17px; font-weight:700; color:var(--gold);}
+.cromo .stat .k{font-size:9px; color:var(--muted); text-transform:uppercase;}
+
+/* TABLA POWER RANKING */
+.rank-table{width:100%; border-collapse:collapse;}
+.table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+@media(max-width:640px){.rank-table{min-width:480px;}}
+.rank-table th{
+  text-align:left; font-family:'JetBrains Mono'; font-size:10.5px; text-transform:uppercase;
+  letter-spacing:.06em; color:var(--muted); padding:10px 12px; border-bottom:1px solid var(--border);
+}
+.rank-table td{padding:11px 12px; border-bottom:1px solid var(--border); font-size:13.5px;}
+.rank-table tr:hover td{background:var(--bg-elevated);}
+.rank-table .pos{font-family:'JetBrains Mono'; color:var(--gold); font-weight:700;}
+.rank-table .bar-cell{width:140px;}
+.power-bar-track{height:6px; background:var(--bg); border-radius:3px; overflow:hidden;}
+.power-bar-fill{height:100%; background:linear-gradient(90deg,var(--gold),var(--red)); border-radius:3px;}
+.stage-pill{
+  font-family:'JetBrains Mono'; font-size:9.5px; padding:3px 8px; border-radius:5px;
+  background:var(--bg-elevated); color:var(--text2); white-space:nowrap;
+}
+
+/* EXPLORADOR DE PARTIDOS */
+.match-row{
+  display:grid; grid-template-columns:90px 1fr 70px 1fr 90px; align-items:center; gap:10px;
+  padding:12px 14px; border-bottom:1px solid var(--border); font-size:13.5px;
+}
+.match-row:hover{background:var(--bg-elevated);}
+.match-row .fase-tag{font-family:'JetBrains Mono'; font-size:9.5px; color:var(--muted);}
+.match-row .team-name{display:flex; align-items:center; gap:8px;}
+.match-row .score{font-family:'JetBrains Mono'; font-weight:700; text-align:center; color:var(--gold); font-size:15px;}
+.match-row .fecha{font-family:'JetBrains Mono'; font-size:11px; color:var(--muted); text-align:right;}
+.match-list{max-height:520px; overflow-y:auto; border:1px solid var(--border); border-radius:var(--radius);}
+.match-count{font-family:'JetBrains Mono'; font-size:12px; color:var(--muted); margin-bottom:10px;}
+@media(max-width:640px){
+  .match-row{grid-template-columns:1fr 46px 1fr; gap:6px; padding:11px 12px; font-size:12px;}
+  .match-row .fase-tag, .match-row .fecha{display:none;}
+  .match-row .score{font-size:13px;}
+}
+
+/* METRICS */
+.metric-highlight{display:flex; align-items:baseline; gap:10px; margin-bottom:6px;}
+.metric-highlight .big{font-family:'JetBrains Mono'; font-size:36px; font-weight:700; color:var(--lime);}
+.metric-highlight .vs{font-size:13px; color:var(--muted);}
+
+.stack-badges{display:flex; flex-wrap:wrap; gap:10px;}
+.badge{display:flex; align-items:center; gap:8px; padding:9px 14px; background:var(--bg-card); border:1px solid var(--border); border-radius:8px; font-size:13px;}
+.badge .dot{width:7px; height:7px; border-radius:50%;}
+
+footer{padding:40px 0; text-align:center; border-top:1px solid var(--border);}
+footer p{font-size:12.5px; color:var(--muted);}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo"><span class="ball">⚽</span> Radiografía de un Mundial</div>
+    <ul class="navlinks">
+      <li><a class="navlink" href="#pipeline">Pipeline</a></li>
+      <li><a class="navlink" href="#analisis">Análisis</a></li>
+      <li><a class="navlink" href="#goleadores">Goleadores</a></li>
+      <li><a class="navlink" href="#ranking">Ranking</a></li>
+      <li><a class="navlink" href="#partidos">Partidos</a></li>
+      <li><a class="navlink" href="#modelo">Modelo</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="pitch-arc"></div>
+  <div class="container">
+    <div class="eyebrow">Portafolio de Data Science · Fútbol</div>
+    <h1>Radiografía<br>de un <em>Mundial</em></h1>
+    <p>Los 104 partidos del Mundial 2026 — verificados uno por uno contra las tablas oficiales — analizados con SQL, Python y Machine Learning. Un modelo predictivo, un ranking de equipos, y los 20 goleadores del torneo.</p>
+
+    <div class="scoreboard">
+      <div class="score-cell"><div class="num">104</div><div class="lbl">Partidos</div></div>
+      <div class="score-cell"><div class="num">48</div><div class="lbl">Selecciones</div></div>
+      <div class="score-cell"><div class="num">12</div><div class="lbl">Grupos</div></div>
+      <div class="score-cell"><div class="num">3</div><div class="lbl">Países sede</div></div>
+      <div class="score-cell"><div class="num" id="stat-goals">—</div><div class="lbl">Goles totales</div></div>
+      <div class="score-cell"><div class="num">🇪🇸</div><div class="lbl">Campeón</div></div>
+    </div>
+  </div>
+</header>
+
+<section id="pipeline">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">Metodología</div>
+      <h2>El pipeline completo</h2>
+      <p>Cinco etapas — de la recopilación de datos reales a un dashboard interactivo.</p>
+    </div>
+    <div class="pipeline">
+      <div class="stage">
+        <div class="idx">01 — EXTRACCIÓN</div>
+        <h3>Datos reales, verificados</h3>
+        <p>Sin dataset preexistente (el torneo terminó hace días). Cada uno de los 104 resultados se cruzó contra 8+ fuentes y se validó aritméticamente contra las 12 tablas de grupo oficiales.</p>
+        <div class="tags"><span class="tag">Web Research</span><span class="tag">Cross-check</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">02 — LIMPIEZA</div>
+        <h3>Transformación</h3>
+        <p>Feature engineering: etapa final alcanzada por equipo, diferencia de gol acumulada, distinción entre 3er y 4to lugar.</p>
+        <div class="tags"><span class="tag">pandas</span><span class="tag">Python</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">03 — MODELADO SQL</div>
+        <h3>Base relacional</h3>
+        <p>Esquema en SQLite (equipos, partidos, goleadores). Todo el análisis exploratorio resuelto con SQL puro.</p>
+        <div class="tags"><span class="tag">SQLite</span><span class="tag">SQL</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">04 — MACHINE LEARNING</div>
+        <h3>IA aplicada</h3>
+        <p>Power Ranking compuesto, clustering de perfiles de equipo (KMeans + PCA), y un clasificador que valida si los datos de grupos predicen el avance.</p>
+        <div class="tags"><span class="tag">scikit-learn</span><span class="tag">KMeans</span><span class="tag">RandomForest</span></div>
+      </div>
+      <div class="stage">
+        <div class="idx">05 — VISUALIZACIÓN</div>
+        <h3>Este dashboard</h3>
+        <p>Cromos de jugadores, ranking filtrable, explorador de partidos — sin fotos ni escudos con derechos de autor: solo banderas y datos.</p>
+        <div class="tags"><span class="tag">HTML/CSS/JS</span><span class="tag">Chart.js</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="analisis" class="alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">100% SQL</div>
+      <h2>Análisis exploratorio</h2>
+      <p>Cada gráfico proviene directamente de una query sobre la base relacional — ver <span class="mono">sql/02_eda_queries.sql</span>.</p>
+    </div>
+    <div class="grid-2" style="margin-bottom:18px;">
+      <div class="card">
+        <h3>Goles: grupos vs. eliminación</h3>
+        <div class="sub">¿Se juega más ofensivo cuando hay margen de error?</div>
+        <canvas id="chart-goals-phase"></canvas>
+      </div>
+      <div class="card">
+        <h3>Rendimiento por confederación</h3>
+        <div class="sub">Etapa promedio alcanzada (0=grupos, 8=campeón)</div>
+        <canvas id="chart-confed"></canvas>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-bottom:18px;">
+      <div class="card">
+        <h3>Las 10 mayores goleadas</h3>
+        <div class="sub">Diferencia de gol más amplia del torneo</div>
+        <canvas id="chart-blowouts"></canvas>
+      </div>
+      <div class="card">
+        <h3>El funnel del torneo</h3>
+        <div class="sub">Cuántos equipos llegaron a cada etapa</div>
+        <canvas id="chart-funnel"></canvas>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Selecciones anfitrionas</h3>
+        <div class="sub">USA, Canadá y México — jugar en casa, ¿alcanza?</div>
+        <canvas id="chart-hosts"></canvas>
+      </div>
+      <div class="card">
+        <h3>Partidos de infarto</h3>
+        <div class="sub">Definidos por penales o tiempo extra</div>
+        <canvas id="chart-drama"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="espacio">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">Machine Learning · Clustering + PCA</div>
+      <h2>El espacio de estilos</h2>
+      <p>Los 48 equipos agrupados por perfil ofensivo/defensivo (KMeans) y proyectados a 2D (PCA). Pasa el mouse sobre los puntos.</p>
+    </div>
+    <div class="card">
+      <canvas id="chart-space" height="110"></canvas>
+      <div class="legend" id="space-legend"></div>
+    </div>
+  </div>
+</section>
+
+<section id="goleadores" class="alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">Top 20 · Datos reales verificados</div>
+      <h2>Los goleadores del torneo</h2>
+      <p>Bota de Oro y goleadores destacados, cruzados contra 5 fuentes. Sin fotos — cromos generados con banderas e iniciales.</p>
+    </div>
+    <div class="filter-bar" id="scorer-filters"></div>
+    <div class="cromo-grid" id="cromo-grid"></div>
+  </div>
+</section>
+
+<section id="ranking">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">Machine Learning · Power Ranking</div>
+      <h2>Top 20 selecciones</h2>
+      <p>Score compuesto: 50% etapa alcanzada, 20% victorias, 20% diferencia de gol, 10% goles a favor.</p>
+    </div>
+    <div class="filter-bar" id="team-filters"></div>
+    <div class="card" style="padding:8px 22px 22px;">
+      <div class="table-scroll">
+      <table class="rank-table">
+        <thead><tr><th>#</th><th>Selección</th><th>Etapa final</th><th>Dif. gol</th><th>Power Score</th></tr></thead>
+        <tbody id="ranking-tbody"></tbody>
+      </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="partidos" class="alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">Los 104 partidos</div>
+      <h2>Explorador de partidos</h2>
+      <p>Filtra por fase o grupo para revisar cualquier resultado del torneo.</p>
+    </div>
+    <div class="filter-bar">
+      <select class="filter-select" id="filter-fase"></select>
+      <select class="filter-select" id="filter-grupo"></select>
+    </div>
+    <div class="match-count" id="match-count"></div>
+    <div class="match-list" id="match-list"></div>
+  </div>
+</section>
+
+<section id="modelo">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">Machine Learning · Validación</div>
+      <h2>¿Los datos de grupos predicen el avance?</h2>
+      <p>Un Random Forest entrenado sobre puntos y goles de fase de grupos, validado con 5-fold cross-validation (muestra pequeña: 48 equipos).</p>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Accuracy vs. baseline</h3>
+        <div class="metric-highlight">
+          <div class="big" id="model-acc">—</div>
+          <div class="vs">vs. <span id="model-baseline" class="mono">—</span> (clase mayoritaria)</div>
+        </div>
+        <div class="sub" style="margin-top:6px;">Random Forest · validación cruzada 5-fold</div>
+        <canvas id="chart-acc" style="margin-top:18px;"></canvas>
+      </div>
+      <div class="card">
+        <h3>Importancia de variables</h3>
+        <div class="sub">Qué predice mejor el avance a eliminación directa</div>
+        <canvas id="chart-importance"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack" class="alt">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow-sm">Stack técnico</div>
+      <h2>Herramientas</h2>
+    </div>
+    <div class="stack-badges">
+      <div class="badge"><span class="dot" style="background:var(--gold)"></span>Python (pandas, numpy)</div>
+      <div class="badge"><span class="dot" style="background:var(--red)"></span>SQL / SQLite</div>
+      <div class="badge"><span class="dot" style="background:var(--blue)"></span>scikit-learn</div>
+      <div class="badge"><span class="dot" style="background:var(--violet)"></span>KMeans · PCA · RandomForest</div>
+      <div class="badge"><span class="dot" style="background:var(--lime)"></span>Chart.js</div>
+      <div class="badge"><span class="dot" style="background:var(--gold)"></span>HTML/CSS/JS vanilla</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>Portafolio de Data Science · Mundial 2026 (11 jun – 19 jul) · Datos verificados manualmente contra fuentes oficiales · github.com/DxrioM/world_cup_2026</p>
+  </div>
+</footer>
+
+<script id="data-eda" type="application/json">__EDA_JSON__</script>
+<script id="data-teams-space" type="application/json">__TEAMS_SPACE_JSON__</script>
+<script id="data-top20-teams" type="application/json">__TOP20_TEAMS_JSON__</script>
+<script id="data-scorers" type="application/json">__SCORERS_JSON__</script>
+<script id="data-matches" type="application/json">__MATCHES_JSON__</script>
+<script id="data-metrics" type="application/json">__METRICS_JSON__</script>
+
+<script>
+let EDA={}, TEAM_SPACE=[], TOP20_TEAMS=[], SCORERS=[], MATCHES=[], METRICS={};
+try{
+  EDA = JSON.parse(document.getElementById('data-eda').textContent);
+  TEAM_SPACE = JSON.parse(document.getElementById('data-teams-space').textContent);
+  TOP20_TEAMS = JSON.parse(document.getElementById('data-top20-teams').textContent);
+  SCORERS = JSON.parse(document.getElementById('data-scorers').textContent);
+  MATCHES = JSON.parse(document.getElementById('data-matches').textContent);
+  METRICS = JSON.parse(document.getElementById('data-metrics').textContent);
+}catch(e){ console.error('Error parsing embedded data', e); }
+
+const PALETTE = ['#E0B23D','#C4453F','#3E90B0','#9B7FC4','#9BC24A','#E08A3D'];
+const TXT2 = '#A7C4AE';
+const GRID = 'rgba(255,255,255,0.05)';
+
+if(typeof Chart !== 'undefined'){
+  Chart.defaults.color = TXT2;
+  Chart.defaults.font.family = "'Inter', sans-serif";
+  Chart.defaults.font.size = 11.5;
+}
+
+function safeChart(canvasId, config){
+  try{
+    if(typeof Chart === 'undefined') throw new Error('Chart.js no disponible');
+    const el = document.getElementById(canvasId);
+    if(!el) return null;
+    return new Chart(el, config);
+  }catch(err){
+    console.error('Chart error ['+canvasId+']', err);
+    const el = document.getElementById(canvasId);
+    if(el && el.parentNode){
+      const msg = document.createElement('div');
+      msg.className = 'chart-error';
+      msg.textContent = 'No se pudo cargar este gráfico.';
+      el.parentNode.replaceChild(msg, el);
+    }
+    return null;
+  }
+}
+function baseOpts(extra){
+  return Object.assign({
+    responsive:true,
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{grid:{color:GRID}, ticks:{color:TXT2}},
+      y:{grid:{color:GRID}, ticks:{color:TXT2}}
+    }
+  }, extra||{});
+}
+
+// ---------- HERO STAT ----------
+try{
+  const totalGoals = MATCHES.reduce((s,m)=>s+m.total_goles, 0);
+  document.getElementById('stat-goals').textContent = totalGoals;
+}catch(e){ console.error(e); }
+
+// ---------- EDA CHARTS ----------
+safeChart('chart-goals-phase', {
+  type:'bar',
+  data:{
+    labels:(EDA.goles_por_fase||[]).map(d=>d.tipo_fase),
+    datasets:[{data:(EDA.goles_por_fase||[]).map(d=>d.goles_promedio_por_partido), backgroundColor:['#E0B23D','#C4453F'], borderRadius:6, barThickness:70}]
+  },
+  options: baseOpts({plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.raw+' goles/partido'}}}})
+});
+
+safeChart('chart-confed', {
+  type:'bar',
+  data:{
+    labels:(EDA.rendimiento_confederacion||[]).map(d=>d.confederacion),
+    datasets:[{data:(EDA.rendimiento_confederacion||[]).map(d=>d.etapa_promedio), backgroundColor:'#3E90B0', borderRadius:4}]
+  },
+  options: baseOpts({indexAxis:'y'})
+});
+
+safeChart('chart-blowouts', {
+  type:'bar',
+  data:{
+    labels:(EDA.mayores_goleadas||[]).map(d=>`${d.local} ${d.goles_local}-${d.goles_visitante} ${d.visitante}`),
+    datasets:[{data:(EDA.mayores_goleadas||[]).map(d=>d.dif_goles), backgroundColor:'#C4453F', borderRadius:4}]
+  },
+  options: baseOpts({indexAxis:'y', scales:{x:{grid:{color:GRID}, ticks:{color:TXT2}}, y:{grid:{display:false}, ticks:{color:TXT2, font:{size:10}}}}})
+});
+
+safeChart('chart-funnel', {
+  type:'bar',
+  data:{
+    labels:(EDA.funnel_etapas||[]).map(d=>d.etapa_final),
+    datasets:[{data:(EDA.funnel_etapas||[]).map(d=>d.num_equipos), backgroundColor:'#9BC24A', borderRadius:4}]
+  },
+  options: baseOpts({indexAxis:'y'})
+});
+
+safeChart('chart-hosts', {
+  type:'bar',
+  data:{
+    labels:(EDA.anfitriones||[]).map(d=>d.team),
+    datasets:[
+      {label:'Goles a favor', data:(EDA.anfitriones||[]).map(d=>d.goles_favor), backgroundColor:'#E0B23D'},
+      {label:'Goles en contra', data:(EDA.anfitriones||[]).map(d=>d.goles_contra), backgroundColor:'#C4453F'},
+    ]
+  },
+  options: baseOpts({plugins:{legend:{display:true, position:'bottom', labels:{boxWidth:10,padding:12}}}})
+});
+
+safeChart('chart-drama', {
+  type:'doughnut',
+  data:{
+    labels:['Definidos por penales/T.E.', 'Resto del torneo'],
+    datasets:[{data:[(EDA.penales_tiempo_extra||[]).length, 104-(EDA.penales_tiempo_extra||[]).length], backgroundColor:['#E0B23D','#1b422e'], borderColor:'#0e2919', borderWidth:3}]
+  },
+  options:{responsive:true, plugins:{legend:{position:'bottom', labels:{padding:14, boxWidth:10}}}}
+});
+
+// ---------- ESPACIO DE EQUIPOS (PCA) ----------
+(function(){
+  try{
+    const clusters = {};
+    TEAM_SPACE.forEach(d=>{
+      if(!clusters[d.cluster_name]) clusters[d.cluster_name]=[];
+      clusters[d.cluster_name].push({x:d.pca_x, y:d.pca_y, meta:d});
+    });
+    const names = Object.keys(clusters);
+    const datasets = names.map((name,i)=>({
+      label:name, data:clusters[name], backgroundColor: PALETTE[i%PALETTE.length]+'cc',
+      pointRadius:5, pointHoverRadius:8,
+    }));
+    safeChart('chart-space', {
+      type:'scatter',
+      data:{datasets},
+      options:{
+        responsive:true,
+        plugins:{legend:{display:false}, tooltip:{callbacks:{label:(c)=>{
+          const m = c.raw.meta;
+          return `${m.bandera} ${m.team} — ${m.etapa_final} (${m.goles_favor}-${m.goles_contra})`;
+        }}}},
+        scales:{
+          x:{grid:{color:GRID}, ticks:{display:false}, title:{display:true,text:'Componente PCA 1',color:TXT2}},
+          y:{grid:{color:GRID}, ticks:{display:false}, title:{display:true,text:'Componente PCA 2',color:TXT2}}
+        }
+      }
+    });
+    const legendWrap = document.getElementById('space-legend');
+    names.forEach((name,i)=>{
+      const el = document.createElement('div');
+      el.className='legend-item';
+      el.innerHTML = `<span class="legend-dot" style="background:${PALETTE[i%PALETTE.length]}"></span>${name} (${clusters[name].length})`;
+      legendWrap.appendChild(el);
+    });
+  }catch(e){ console.error(e); }
+})();
+
+// ---------- CROMOS DE GOLEADORES (con filtro) ----------
+(function(){
+  const grid = document.getElementById('cromo-grid');
+  const filterBar = document.getElementById('scorer-filters');
+  if(!grid) return;
+
+  function initials(name){
+    return name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  }
+  function renderCromos(list){
+    grid.innerHTML = '';
+    list.forEach(p=>{
+      const card = document.createElement('div');
+      card.className = 'cromo';
+      card.innerHTML = `
+        <div class="rank-badge">#${p.rank}</div>
+        <div class="avatar">${initials(p.jugador)}</div>
+        <div class="flag">${p.bandera}</div>
+        <div class="name">${p.jugador}</div>
+        <div class="team">${p.equipo}</div>
+        <div class="stats">
+          <div class="stat"><div class="v">${p.goles}</div><div class="k">Goles</div></div>
+          <div class="stat"><div class="v">${p.asistencias||0}</div><div class="k">Asist.</div></div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  const confeds = ['Todas', ...new Set(SCORERS.map(p=>{
+    const t = TEAM_SPACE.find(t=>t.team === p.equipo);
+    return t ? t.confederacion : 'Otra';
+  }))];
+  filterBar.innerHTML = '';
+  confeds.forEach((c,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (i===0 ? ' active' : '');
+    btn.textContent = c;
+    btn.addEventListener('click', ()=>{
+      filterBar.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      if(c === 'Todas') renderCromos(SCORERS);
+      else renderCromos(SCORERS.filter(p=>{
+        const t = TEAM_SPACE.find(t=>t.team === p.equipo);
+        return t && t.confederacion === c;
+      }));
+    });
+    filterBar.appendChild(btn);
+  });
+  renderCromos(SCORERS);
+})();
+
+// ---------- POWER RANKING (con filtro) ----------
+(function(){
+  const tbody = document.getElementById('ranking-tbody');
+  const filterBar = document.getElementById('team-filters');
+  if(!tbody) return;
+
+  function renderRanking(list){
+    tbody.innerHTML = '';
+    list.forEach(t=>{
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="pos">#${t.power_rank}</td>
+        <td>${t.bandera} ${t.team}</td>
+        <td><span class="stage-pill">${t.etapa_final}</span></td>
+        <td class="mono">${t.dif_goles > 0 ? '+' : ''}${t.dif_goles}</td>
+        <td class="bar-cell">
+          <div class="power-bar-track"><div class="power-bar-fill" style="width:${t.power_score}%"></div></div>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    });
+  }
+
+  const confeds = ['Todas', ...new Set(TOP20_TEAMS.map(t=>t.confederacion))];
+  filterBar.innerHTML = '';
+  confeds.forEach((c,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'filter-btn' + (i===0 ? ' active' : '');
+    btn.textContent = c;
+    btn.addEventListener('click', ()=>{
+      filterBar.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      if(c === 'Todas') renderRanking(TOP20_TEAMS);
+      else renderRanking(TOP20_TEAMS.filter(t=>t.confederacion === c));
+    });
+    filterBar.appendChild(btn);
+  });
+  renderRanking(TOP20_TEAMS);
+})();
+
+// ---------- EXPLORADOR DE PARTIDOS (con filtros) ----------
+(function(){
+  const list = document.getElementById('match-list');
+  const countEl = document.getElementById('match-count');
+  const faseSelect = document.getElementById('filter-fase');
+  const grupoSelect = document.getElementById('filter-grupo');
+  if(!list) return;
+
+  const fases = ['Todas las fases', ...new Set(MATCHES.map(m=>m.fase))];
+  faseSelect.innerHTML = fases.map(f=>`<option value="${f}">${f}</option>`).join('');
+
+  const gruposUnicos = [...new Set(MATCHES.filter(m=>m.grupo).map(m=>m.grupo))].sort();
+  const grupos = ['Todos los grupos', ...gruposUnicos];
+  grupoSelect.innerHTML = grupos.map(g=>`<option value="${g}">${g === 'Todos los grupos' ? g : 'Grupo ' + g}</option>`).join('');
+
+  function renderMatches(){
+    const fase = faseSelect.value;
+    const grupo = grupoSelect.value;
+    let filtered = MATCHES;
+    if(fase !== 'Todas las fases') filtered = filtered.filter(m=>m.fase === fase);
+    if(grupo !== 'Todos los grupos') filtered = filtered.filter(m=>m.grupo === grupo);
+
+    countEl.textContent = `${filtered.length} partido${filtered.length===1?'':'s'}`;
+    list.innerHTML = '';
+    filtered.forEach(m=>{
+      const row = document.createElement('div');
+      row.className = 'match-row';
+      row.innerHTML = `
+        <div class="fase-tag">${m.grupo ? 'Grupo '+m.grupo : m.fase}</div>
+        <div class="team-name">${m.bandera_local||''} ${m.local}</div>
+        <div class="score">${m.goles_local} - ${m.goles_visitante}</div>
+        <div class="team-name">${m.bandera_visitante||''} ${m.visitante}</div>
+        <div class="fecha">${m.fecha}</div>
+      `;
+      list.appendChild(row);
+    });
+  }
+  faseSelect.addEventListener('change', renderMatches);
+  grupoSelect.addEventListener('change', renderMatches);
+  renderMatches();
+})();
+
+// ---------- MODELO ----------
+try{
+  const acc = METRICS.cv_accuracy_mean || 0;
+  const base = METRICS.baseline_majority_class || 0;
+  document.getElementById('model-acc').textContent = (acc*100).toFixed(1)+'%';
+  document.getElementById('model-baseline').textContent = (base*100).toFixed(1)+'%';
+
+  safeChart('chart-acc', {
+    type:'bar',
+    data:{
+      labels:['Baseline (clase mayoritaria)', 'Random Forest (CV)'],
+      datasets:[{data:[base*100, acc*100], backgroundColor:['#2c5b41','#9BC24A'], borderRadius:6, barThickness:60}]
+    },
+    options: baseOpts({plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.raw.toFixed(1)+'%'}}}, scales:{y:{max:100,grid:{color:GRID}}, x:{grid:{display:false}}}})
+  });
+
+  safeChart('chart-importance', {
+    type:'bar',
+    data:{
+      labels:Object.keys(METRICS.feature_importance||{}),
+      datasets:[{data:Object.values(METRICS.feature_importance||{}), backgroundColor:'#9B7FC4', borderRadius:4}]
+    },
+    options: baseOpts({indexAxis:'y'})
+  });
+}catch(e){ console.error(e); }
+</script>
+</body>
+</html>
