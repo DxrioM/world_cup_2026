@@ -1,36 +1,28 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="__HTML_LANG__">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Radiografía de un Mundial — Portafolio de Data Science Deportivo</title>
-<meta property="og:title" content="Radiografía de un Mundial — Portafolio de Data Science Deportivo">
-<meta property="og:description" content="Los 104 partidos del Mundial 2026 analizados con SQL, Python y Machine Learning. Top 20 goleadores, ranking de equipos, y un modelo predictivo.">
+<title>__PAGE_TITLE__</title>
+<meta property="og:title" content="__PAGE_TITLE__">
+<meta property="og:description" content="__OG_DESC__">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://dxriom.github.io/world_cup_2026/">
+<meta property="og:url" content="__CANONICAL_URL__">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Radiografía de un Mundial — Portafolio de Data Science Deportivo">
-<meta name="twitter:description" content="104 partidos del Mundial 2026 analizados con SQL, Python y Machine Learning.">
-<meta name="description" content="Los 104 partidos del Mundial 2026 analizados con SQL, Python y Machine Learning.">
+<meta name="twitter:title" content="__PAGE_TITLE__">
+<meta name="twitter:description" content="__OG_DESC__">
+<meta name="description" content="__OG_DESC__">
 <meta name="author" content="DxrioM">
-<link rel="canonical" href="https://dxriom.github.io/world_cup_2026/">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>"><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="canonical" href="__CANONICAL_URL__">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚽</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <script>__CHARTJS_LIB__</script>
 <style>
 :root{
-  --bg:#0e2919;
-  --bg-elevated:#153524;
-  --bg-card:#1b422e;
-  --border:#2c5b41;
-  --text:#F2EFE3;
-  --text2:#A7C4AE;
-  --muted:#6E8F77;
-  --gold:#E0B23D;
-  --red:#C4453F;
-  --blue:#3E90B0;
-  --violet:#9B7FC4;
-  --lime:#9BC24A;
+  --bg:#0e2919; --bg-elevated:#153524; --bg-card:#1b422e; --border:#2c5b41;
+  --text:#F2EFE3; --text2:#A7C4AE; --muted:#6E8F77;
+  --gold:#E0B23D; --red:#C4453F; --blue:#3E90B0; --violet:#9B7FC4; --lime:#9BC24A;
   --radius:10px;
 }
 *{box-sizing:border-box; margin:0; padding:0;}
@@ -47,37 +39,33 @@ h1,h2,h3{font-family:'Bebas Neue',sans-serif; font-weight:400; letter-spacing:0.
 .container{max-width:1180px; margin:0 auto; padding:0 28px;}
 a{color:inherit;}
 
-/* NAV */
 nav{position:sticky; top:0; z-index:100; background:rgba(14,41,25,0.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--border);}
 nav .container{display:flex; align-items:center; justify-content:space-between; height:64px;}
 .logo{display:flex; align-items:center; gap:10px; font-family:'Bebas Neue'; font-size:22px; letter-spacing:0.02em;}
 .logo .ball{font-size:20px;}
-.navlinks{list-style:none; display:flex; gap:22px;}
+.navlinks{list-style:none; display:flex; align-items:center; gap:20px;}
 nav a.navlink{font-size:13px; color:var(--text2); text-decoration:none; text-transform:uppercase; letter-spacing:0.04em; transition:color .15s;}
 nav a.navlink:hover{color:var(--gold);}
-@media(max-width:900px){.navlinks{display:none;}}
+@media(max-width:900px){.navlinks li:not(.lang-item){display:none;}}
+.lang-switch{display:flex; gap:6px;}
+.lang-switch a{font-family:'JetBrains Mono'; font-size:11px; padding:5px 9px; border:1px solid var(--border); border-radius:6px; color:var(--text2); text-decoration:none;}
+.lang-switch a.active{color:var(--bg); background:var(--gold); border-color:var(--gold); font-weight:700;}
 
-/* HERO */
 .hero{padding:70px 0 30px; position:relative; overflow:hidden;}
 .pitch-arc{position:absolute; top:-180px; right:-180px; width:420px; height:420px; border:2px solid rgba(242,239,227,0.06); border-radius:50%; pointer-events:none;}
 .pitch-arc::after{content:''; position:absolute; inset:60px; border:2px solid rgba(242,239,227,0.05); border-radius:50%;}
-.eyebrow{
-  font-family:'JetBrains Mono'; font-size:12px; text-transform:uppercase; letter-spacing:.14em;
-  color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:10px;
-}
+.eyebrow{font-family:'JetBrains Mono'; font-size:12px; text-transform:uppercase; letter-spacing:.14em; color:var(--gold); margin-bottom:16px; display:flex; align-items:center; gap:10px;}
 .eyebrow::before{content:''; width:22px; height:1px; background:var(--gold);}
 .hero h1{font-size:clamp(46px,7vw,84px); line-height:0.95; max-width:820px; margin-bottom:20px; text-transform:uppercase;}
 .hero h1 em{font-style:normal; color:var(--gold);}
 .hero p{font-size:17px; color:var(--text2); max-width:600px; margin-bottom:8px;}
 
-/* SCOREBOARD */
 .scoreboard{margin-top:44px; display:flex; gap:2px; flex-wrap:wrap; border-radius:var(--radius); overflow:hidden; border:1px solid var(--border);}
 .score-cell{flex:1; min-width:130px; background:var(--bg-elevated); padding:20px 18px; text-align:center; border-right:1px solid var(--border);}
 .score-cell:last-child{border-right:none;}
 .score-cell .num{font-family:'JetBrains Mono'; font-size:34px; font-weight:700; color:var(--gold); letter-spacing:-0.02em;}
 .score-cell .lbl{font-size:10.5px; color:var(--text2); text-transform:uppercase; letter-spacing:.08em; margin-top:4px;}
 
-/* SECTIONS */
 section{padding:64px 0;}
 section.alt{background:var(--bg-elevated); border-top:1px solid var(--border); border-bottom:1px solid var(--border);}
 .section-head{margin-bottom:34px; max-width:660px;}
@@ -85,7 +73,6 @@ section.alt{background:var(--bg-elevated); border-top:1px solid var(--border); b
 .section-head h2{font-size:clamp(28px,3.6vw,40px); margin-bottom:10px; text-transform:uppercase;}
 .section-head p{color:var(--text2); font-size:15px;}
 
-/* PIPELINE */
 .pipeline{display:grid; grid-template-columns:repeat(5,1fr); gap:14px;}
 @media(max-width:900px){.pipeline{grid-template-columns:1fr 1fr;}}
 @media(max-width:520px){.pipeline{grid-template-columns:1fr;}}
@@ -96,10 +83,8 @@ section.alt{background:var(--bg-elevated); border-top:1px solid var(--border); b
 .tags{display:flex; flex-wrap:wrap; gap:5px;}
 .tag{font-family:'JetBrains Mono'; font-size:10px; padding:3px 7px; background:var(--bg-elevated); border:1px solid var(--border); border-radius:5px; color:var(--text2);}
 
-/* GRID CARDS */
 .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
-.grid-3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px;}
-@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+@media(max-width:900px){.grid-2{grid-template-columns:1fr;}}
 .card{background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius); padding:22px;}
 .card h3{font-size:20px; margin-bottom:2px; text-transform:uppercase;}
 .card .sub{font-size:12px; color:var(--muted); margin-bottom:16px;}
@@ -110,37 +95,17 @@ section.alt{background:var(--bg-elevated); border-top:1px solid var(--border); b
 .legend-item{display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--text2);}
 .legend-dot{width:9px; height:9px; border-radius:50%;}
 
-/* FILTROS */
 .filter-bar{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px;}
-.filter-btn{
-  font-family:'JetBrains Mono'; font-size:11.5px; padding:7px 13px; border-radius:20px;
-  border:1px solid var(--border); background:var(--bg-card); color:var(--text2); cursor:pointer;
-  transition:all .15s;
-}
+.filter-btn{font-family:'JetBrains Mono'; font-size:11.5px; padding:7px 13px; border-radius:20px; border:1px solid var(--border); background:var(--bg-card); color:var(--text2); cursor:pointer; transition:all .15s;}
 .filter-btn:hover{border-color:var(--gold); color:var(--text);}
 .filter-btn.active{background:var(--gold); color:var(--bg); border-color:var(--gold); font-weight:700;}
-select.filter-select{
-  font-family:'JetBrains Mono'; font-size:12px; padding:8px 12px; border-radius:8px;
-  border:1px solid var(--border); background:var(--bg-card); color:var(--text); cursor:pointer;
-}
+select.filter-select{font-family:'JetBrains Mono'; font-size:12px; padding:8px 12px; border-radius:8px; border:1px solid var(--border); background:var(--bg-card); color:var(--text); cursor:pointer;}
 
-/* CROMO CARDS (jugadores) */
 .cromo-grid{display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:14px;}
-.cromo{
-  background:linear-gradient(160deg, var(--bg-card), var(--bg-elevated));
-  border:1px solid var(--border); border-radius:12px; padding:16px 14px; position:relative;
-  border-top:4px solid var(--gold); transition:transform .15s;
-}
+.cromo{background:linear-gradient(160deg, var(--bg-card), var(--bg-elevated)); border:1px solid var(--border); border-radius:12px; padding:16px 14px; position:relative; border-top:4px solid var(--gold); transition:transform .15s;}
 .cromo:hover{transform:translateY(-3px);}
-.cromo .rank-badge{
-  position:absolute; top:10px; right:10px; font-family:'JetBrains Mono'; font-size:10px;
-  color:var(--muted);
-}
-.cromo .avatar{
-  width:54px; height:54px; border-radius:50%; background:var(--bg-elevated);
-  border:2px solid var(--gold); display:flex; align-items:center; justify-content:center;
-  font-family:'Bebas Neue'; font-size:20px; color:var(--gold); margin-bottom:10px;
-}
+.cromo .rank-badge{position:absolute; top:10px; right:10px; font-family:'JetBrains Mono'; font-size:10px; color:var(--muted);}
+.cromo .avatar{width:54px; height:54px; border-radius:50%; background:var(--bg-elevated); border:2px solid var(--gold); display:flex; align-items:center; justify-content:center; font-family:'Bebas Neue'; font-size:20px; color:var(--gold); margin-bottom:10px;}
 .cromo .flag{font-size:22px; margin-bottom:6px;}
 .cromo .name{font-size:14.5px; font-weight:700; line-height:1.2; margin-bottom:2px;}
 .cromo .team{font-size:11px; color:var(--text2); margin-bottom:10px;}
@@ -149,30 +114,19 @@ select.filter-select{
 .cromo .stat .v{font-size:17px; font-weight:700; color:var(--gold);}
 .cromo .stat .k{font-size:9px; color:var(--muted); text-transform:uppercase;}
 
-/* TABLA POWER RANKING */
 .rank-table{width:100%; border-collapse:collapse;}
 .table-scroll{overflow-x:auto; -webkit-overflow-scrolling:touch;}
 @media(max-width:640px){.rank-table{min-width:480px;}}
-.rank-table th{
-  text-align:left; font-family:'JetBrains Mono'; font-size:10.5px; text-transform:uppercase;
-  letter-spacing:.06em; color:var(--muted); padding:10px 12px; border-bottom:1px solid var(--border);
-}
+.rank-table th{text-align:left; font-family:'JetBrains Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); padding:10px 12px; border-bottom:1px solid var(--border);}
 .rank-table td{padding:11px 12px; border-bottom:1px solid var(--border); font-size:13.5px;}
 .rank-table tr:hover td{background:var(--bg-elevated);}
 .rank-table .pos{font-family:'JetBrains Mono'; color:var(--gold); font-weight:700;}
 .rank-table .bar-cell{width:140px;}
 .power-bar-track{height:6px; background:var(--bg); border-radius:3px; overflow:hidden;}
 .power-bar-fill{height:100%; background:linear-gradient(90deg,var(--gold),var(--red)); border-radius:3px;}
-.stage-pill{
-  font-family:'JetBrains Mono'; font-size:9.5px; padding:3px 8px; border-radius:5px;
-  background:var(--bg-elevated); color:var(--text2); white-space:nowrap;
-}
+.stage-pill{font-family:'JetBrains Mono'; font-size:9.5px; padding:3px 8px; border-radius:5px; background:var(--bg-elevated); color:var(--text2); white-space:nowrap;}
 
-/* EXPLORADOR DE PARTIDOS */
-.match-row{
-  display:grid; grid-template-columns:90px 1fr 70px 1fr 90px; align-items:center; gap:10px;
-  padding:12px 14px; border-bottom:1px solid var(--border); font-size:13.5px;
-}
+.match-row{display:grid; grid-template-columns:90px 1fr 70px 1fr 90px; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid var(--border); font-size:13.5px;}
 .match-row:hover{background:var(--bg-elevated);}
 .match-row .fase-tag{font-family:'JetBrains Mono'; font-size:9.5px; color:var(--muted);}
 .match-row .team-name{display:flex; align-items:center; gap:8px;}
@@ -186,7 +140,6 @@ select.filter-select{
   .match-row .score{font-size:13px;}
 }
 
-/* METRICS */
 .metric-highlight{display:flex; align-items:baseline; gap:10px; margin-bottom:6px;}
 .metric-highlight .big{font-family:'JetBrains Mono'; font-size:36px; font-weight:700; color:var(--lime);}
 .metric-highlight .vs{font-size:13px; color:var(--muted);}
@@ -203,14 +156,20 @@ footer p{font-size:12.5px; color:var(--muted);}
 
 <nav>
   <div class="container">
-    <div class="logo"><span class="ball">⚽</span> Radiografía de un Mundial</div>
+    <div class="logo"><span class="ball">⚽</span> <span data-i18n="brand"></span></div>
     <ul class="navlinks">
-      <li><a class="navlink" href="#pipeline">Pipeline</a></li>
-      <li><a class="navlink" href="#analisis">Análisis</a></li>
-      <li><a class="navlink" href="#goleadores">Goleadores</a></li>
-      <li><a class="navlink" href="#ranking">Ranking</a></li>
-      <li><a class="navlink" href="#partidos">Partidos</a></li>
-      <li><a class="navlink" href="#modelo">Modelo</a></li>
+      <li><a class="navlink" href="#pipeline" data-i18n="nav_pipeline"></a></li>
+      <li><a class="navlink" href="#analisis" data-i18n="nav_analysis"></a></li>
+      <li><a class="navlink" href="#goleadores" data-i18n="nav_scorers"></a></li>
+      <li><a class="navlink" href="#ranking" data-i18n="nav_ranking"></a></li>
+      <li><a class="navlink" href="#partidos" data-i18n="nav_matches"></a></li>
+      <li><a class="navlink" href="#modelo" data-i18n="nav_model"></a></li>
+      <li class="lang-item">
+        <div class="lang-switch">
+          <a href="__LINK_ES__" class="__ES_ACTIVE__">ES</a>
+          <a href="__LINK_EN__" class="__EN_ACTIVE__">EN</a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>
@@ -218,17 +177,16 @@ footer p{font-size:12.5px; color:var(--muted);}
 <header class="hero">
   <div class="pitch-arc"></div>
   <div class="container">
-    <div class="eyebrow">Portafolio de Data Science · Fútbol</div>
-    <h1>Radiografía<br>de un <em>Mundial</em></h1>
-    <p>Los 104 partidos del Mundial 2026 — verificados uno por uno contra las tablas oficiales — analizados con SQL, Python y Machine Learning. Un modelo predictivo, un ranking de equipos, y los 20 goleadores del torneo.</p>
-
+    <div class="eyebrow" data-i18n="eyebrow"></div>
+    <h1 data-i18n-html="hero_title"></h1>
+    <p data-i18n="hero_sub"></p>
     <div class="scoreboard">
-      <div class="score-cell"><div class="num">104</div><div class="lbl">Partidos</div></div>
-      <div class="score-cell"><div class="num">48</div><div class="lbl">Selecciones</div></div>
-      <div class="score-cell"><div class="num">12</div><div class="lbl">Grupos</div></div>
-      <div class="score-cell"><div class="num">3</div><div class="lbl">Países sede</div></div>
-      <div class="score-cell"><div class="num" id="stat-goals">—</div><div class="lbl">Goles totales</div></div>
-      <div class="score-cell"><div class="num">🇪🇸</div><div class="lbl">Campeón</div></div>
+      <div class="score-cell"><div class="num">104</div><div class="lbl" data-i18n="stat_matches"></div></div>
+      <div class="score-cell"><div class="num">48</div><div class="lbl" data-i18n="stat_teams"></div></div>
+      <div class="score-cell"><div class="num">12</div><div class="lbl" data-i18n="stat_groups"></div></div>
+      <div class="score-cell"><div class="num">3</div><div class="lbl" data-i18n="stat_hosts"></div></div>
+      <div class="score-cell"><div class="num" id="stat-goals">—</div><div class="lbl" data-i18n="stat_goals"></div></div>
+      <div class="score-cell"><div class="num">🇪🇸</div><div class="lbl" data-i18n="stat_champion"></div></div>
     </div>
   </div>
 </header>
@@ -236,39 +194,39 @@ footer p{font-size:12.5px; color:var(--muted);}
 <section id="pipeline">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-sm">Metodología</div>
-      <h2>El pipeline completo</h2>
-      <p>Cinco etapas — de la recopilación de datos reales a un dashboard interactivo.</p>
+      <div class="eyebrow-sm" data-i18n="pipeline_eyebrow"></div>
+      <h2 data-i18n="pipeline_h2"></h2>
+      <p data-i18n="pipeline_sub"></p>
     </div>
     <div class="pipeline">
       <div class="stage">
-        <div class="idx">01 — EXTRACCIÓN</div>
-        <h3>Datos reales, verificados</h3>
-        <p>Sin dataset preexistente (el torneo terminó hace días). Cada uno de los 104 resultados se cruzó contra 8+ fuentes y se validó aritméticamente contra las 12 tablas de grupo oficiales.</p>
+        <div class="idx" data-i18n="stage1_idx"></div>
+        <h3 data-i18n="stage1_h3"></h3>
+        <p data-i18n="stage1_p"></p>
         <div class="tags"><span class="tag">Web Research</span><span class="tag">Cross-check</span></div>
       </div>
       <div class="stage">
-        <div class="idx">02 — LIMPIEZA</div>
-        <h3>Transformación</h3>
-        <p>Feature engineering: etapa final alcanzada por equipo, diferencia de gol acumulada, distinción entre 3er y 4to lugar.</p>
+        <div class="idx" data-i18n="stage2_idx"></div>
+        <h3 data-i18n="stage2_h3"></h3>
+        <p data-i18n="stage2_p"></p>
         <div class="tags"><span class="tag">pandas</span><span class="tag">Python</span></div>
       </div>
       <div class="stage">
-        <div class="idx">03 — MODELADO SQL</div>
-        <h3>Base relacional</h3>
-        <p>Esquema en SQLite (equipos, partidos, goleadores). Todo el análisis exploratorio resuelto con SQL puro.</p>
+        <div class="idx" data-i18n="stage3_idx"></div>
+        <h3 data-i18n="stage3_h3"></h3>
+        <p data-i18n="stage3_p"></p>
         <div class="tags"><span class="tag">SQLite</span><span class="tag">SQL</span></div>
       </div>
       <div class="stage">
-        <div class="idx">04 — MACHINE LEARNING</div>
-        <h3>IA aplicada</h3>
-        <p>Power Ranking compuesto, clustering de perfiles de equipo (KMeans + PCA), y un clasificador que valida si los datos de grupos predicen el avance.</p>
+        <div class="idx" data-i18n="stage4_idx"></div>
+        <h3 data-i18n="stage4_h3"></h3>
+        <p data-i18n="stage4_p"></p>
         <div class="tags"><span class="tag">scikit-learn</span><span class="tag">KMeans</span><span class="tag">RandomForest</span></div>
       </div>
       <div class="stage">
-        <div class="idx">05 — VISUALIZACIÓN</div>
-        <h3>Este dashboard</h3>
-        <p>Cromos de jugadores, ranking filtrable, explorador de partidos — sin fotos ni escudos con derechos de autor: solo banderas y datos.</p>
+        <div class="idx" data-i18n="stage5_idx"></div>
+        <h3 data-i18n="stage5_h3"></h3>
+        <p data-i18n="stage5_p"></p>
         <div class="tags"><span class="tag">HTML/CSS/JS</span><span class="tag">Chart.js</span></div>
       </div>
     </div>
@@ -279,42 +237,42 @@ footer p{font-size:12.5px; color:var(--muted);}
   <div class="container">
     <div class="section-head">
       <div class="eyebrow-sm">100% SQL</div>
-      <h2>Análisis exploratorio</h2>
-      <p>Cada gráfico proviene directamente de una query sobre la base relacional — ver <span class="mono">sql/02_eda_queries.sql</span>.</p>
+      <h2 data-i18n="eda_h2"></h2>
+      <p data-i18n-html="eda_sub"></p>
     </div>
     <div class="grid-2" style="margin-bottom:18px;">
       <div class="card">
-        <h3>Goles: grupos vs. eliminación</h3>
-        <div class="sub">¿Se juega más ofensivo cuando hay margen de error?</div>
+        <h3 data-i18n="chart_goals_h3"></h3>
+        <div class="sub" data-i18n="chart_goals_sub"></div>
         <canvas id="chart-goals-phase"></canvas>
       </div>
       <div class="card">
-        <h3>Rendimiento por confederación</h3>
-        <div class="sub">Etapa promedio alcanzada (0=grupos, 8=campeón)</div>
+        <h3 data-i18n="chart_confed_h3"></h3>
+        <div class="sub" data-i18n="chart_confed_sub"></div>
         <canvas id="chart-confed"></canvas>
       </div>
     </div>
     <div class="grid-2" style="margin-bottom:18px;">
       <div class="card">
-        <h3>Las 10 mayores goleadas</h3>
-        <div class="sub">Diferencia de gol más amplia del torneo</div>
+        <h3 data-i18n="chart_blowouts_h3"></h3>
+        <div class="sub" data-i18n="chart_blowouts_sub"></div>
         <canvas id="chart-blowouts"></canvas>
       </div>
       <div class="card">
-        <h3>El funnel del torneo</h3>
-        <div class="sub">Cuántos equipos llegaron a cada etapa</div>
+        <h3 data-i18n="chart_funnel_h3"></h3>
+        <div class="sub" data-i18n="chart_funnel_sub"></div>
         <canvas id="chart-funnel"></canvas>
       </div>
     </div>
     <div class="grid-2">
       <div class="card">
-        <h3>Selecciones anfitrionas</h3>
-        <div class="sub">USA, Canadá y México — jugar en casa, ¿alcanza?</div>
+        <h3 data-i18n="chart_hosts_h3"></h3>
+        <div class="sub" data-i18n="chart_hosts_sub"></div>
         <canvas id="chart-hosts"></canvas>
       </div>
       <div class="card">
-        <h3>Partidos de infarto</h3>
-        <div class="sub">Definidos por penales o tiempo extra</div>
+        <h3 data-i18n="chart_drama_h3"></h3>
+        <div class="sub" data-i18n="chart_drama_sub"></div>
         <canvas id="chart-drama"></canvas>
       </div>
     </div>
@@ -324,9 +282,9 @@ footer p{font-size:12.5px; color:var(--muted);}
 <section id="espacio">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-sm">Machine Learning · Clustering + PCA</div>
-      <h2>El espacio de estilos</h2>
-      <p>Los 48 equipos agrupados por perfil ofensivo/defensivo (KMeans) y proyectados a 2D (PCA). Pasa el mouse sobre los puntos.</p>
+      <div class="eyebrow-sm" data-i18n="space_eyebrow"></div>
+      <h2 data-i18n="space_h2"></h2>
+      <p data-i18n="space_sub"></p>
     </div>
     <div class="card">
       <canvas id="chart-space" height="110"></canvas>
@@ -338,9 +296,9 @@ footer p{font-size:12.5px; color:var(--muted);}
 <section id="goleadores" class="alt">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-sm">Top 20 · Datos reales verificados</div>
-      <h2>Los goleadores del torneo</h2>
-      <p>Bota de Oro y goleadores destacados, cruzados contra 5 fuentes. Sin fotos — cromos generados con banderas e iniciales.</p>
+      <div class="eyebrow-sm" data-i18n="scorers_eyebrow"></div>
+      <h2 data-i18n="scorers_h2"></h2>
+      <p data-i18n="scorers_sub"></p>
     </div>
     <div class="filter-bar" id="scorer-filters"></div>
     <div class="cromo-grid" id="cromo-grid"></div>
@@ -350,15 +308,18 @@ footer p{font-size:12.5px; color:var(--muted);}
 <section id="ranking">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-sm">Machine Learning · Power Ranking</div>
-      <h2>Top 20 selecciones</h2>
-      <p>Score compuesto: 50% etapa alcanzada, 20% victorias, 20% diferencia de gol, 10% goles a favor.</p>
+      <div class="eyebrow-sm" data-i18n="ranking_eyebrow"></div>
+      <h2 data-i18n="ranking_h2"></h2>
+      <p data-i18n="ranking_sub"></p>
     </div>
     <div class="filter-bar" id="team-filters"></div>
     <div class="card" style="padding:8px 22px 22px;">
       <div class="table-scroll">
       <table class="rank-table">
-        <thead><tr><th>#</th><th>Selección</th><th>Etapa final</th><th>Dif. gol</th><th>Power Score</th></tr></thead>
+        <thead><tr>
+          <th data-i18n="th_pos"></th><th data-i18n="th_team"></th><th data-i18n="th_stage"></th>
+          <th data-i18n="th_goaldiff"></th><th data-i18n="th_power"></th>
+        </tr></thead>
         <tbody id="ranking-tbody"></tbody>
       </table>
       </div>
@@ -369,9 +330,9 @@ footer p{font-size:12.5px; color:var(--muted);}
 <section id="partidos" class="alt">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-sm">Los 104 partidos</div>
-      <h2>Explorador de partidos</h2>
-      <p>Filtra por fase o grupo para revisar cualquier resultado del torneo.</p>
+      <div class="eyebrow-sm" data-i18n="matches_eyebrow"></div>
+      <h2 data-i18n="matches_h2"></h2>
+      <p data-i18n="matches_sub"></p>
     </div>
     <div class="filter-bar">
       <select class="filter-select" id="filter-fase"></select>
@@ -385,23 +346,23 @@ footer p{font-size:12.5px; color:var(--muted);}
 <section id="modelo">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-sm">Machine Learning · Validación</div>
-      <h2>¿Los datos de grupos predicen el avance?</h2>
-      <p>Un Random Forest entrenado sobre puntos y goles de fase de grupos, validado con 5-fold cross-validation (muestra pequeña: 48 equipos).</p>
+      <div class="eyebrow-sm" data-i18n="model_eyebrow"></div>
+      <h2 data-i18n="model_h2"></h2>
+      <p data-i18n="model_sub"></p>
     </div>
     <div class="grid-2">
       <div class="card">
-        <h3>Accuracy vs. baseline</h3>
+        <h3 data-i18n="model_acc_h3"></h3>
         <div class="metric-highlight">
           <div class="big" id="model-acc">—</div>
-          <div class="vs">vs. <span id="model-baseline" class="mono">—</span> (clase mayoritaria)</div>
+          <div class="vs"><span data-i18n="model_vs"></span> <span id="model-baseline" class="mono">—</span> <span data-i18n="model_baseline_label"></span></div>
         </div>
-        <div class="sub" style="margin-top:6px;">Random Forest · validación cruzada 5-fold</div>
+        <div class="sub" style="margin-top:6px;" data-i18n="model_acc_sub"></div>
         <canvas id="chart-acc" style="margin-top:18px;"></canvas>
       </div>
       <div class="card">
-        <h3>Importancia de variables</h3>
-        <div class="sub">Qué predice mejor el avance a eliminación directa</div>
+        <h3 data-i18n="model_imp_h3"></h3>
+        <div class="sub" data-i18n="model_imp_sub"></div>
         <canvas id="chart-importance"></canvas>
       </div>
     </div>
@@ -411,8 +372,8 @@ footer p{font-size:12.5px; color:var(--muted);}
 <section id="stack" class="alt">
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow-sm">Stack técnico</div>
-      <h2>Herramientas</h2>
+      <div class="eyebrow-sm" data-i18n="stack_eyebrow"></div>
+      <h2 data-i18n="stack_h2"></h2>
     </div>
     <div class="stack-badges">
       <div class="badge"><span class="dot" style="background:var(--gold)"></span>Python (pandas, numpy)</div>
@@ -427,7 +388,7 @@ footer p{font-size:12.5px; color:var(--muted);}
 
 <footer>
   <div class="container">
-    <p>Portafolio de Data Science · Mundial 2026 (11 jun – 19 jul) · Datos verificados manualmente contra fuentes oficiales · github.com/DxrioM/world_cup_2026</p>
+    <p data-i18n="footer_text"></p>
   </div>
 </footer>
 
@@ -439,6 +400,133 @@ footer p{font-size:12.5px; color:var(--muted);}
 <script id="data-metrics" type="application/json">__METRICS_JSON__</script>
 
 <script>
+const LANG = "__LANG__";
+const I18N = {
+es: {
+  brand:"Radiografía de un Mundial",
+  nav_pipeline:"Pipeline", nav_analysis:"Análisis", nav_scorers:"Goleadores",
+  nav_ranking:"Ranking", nav_matches:"Partidos", nav_model:"Modelo",
+  eyebrow:"Portafolio de Data Science · Fútbol",
+  hero_title:"Radiografía<br>de un <em>Mundial</em>",
+  hero_sub:"Los 104 partidos del Mundial 2026 — verificados uno por uno contra las tablas oficiales — analizados con SQL, Python y Machine Learning. Un modelo predictivo, un ranking de equipos, y los 20 goleadores del torneo.",
+  stat_matches:"Partidos", stat_teams:"Selecciones", stat_groups:"Grupos",
+  stat_hosts:"Países sede", stat_goals:"Goles totales", stat_champion:"Campeón",
+  pipeline_eyebrow:"Metodología", pipeline_h2:"El pipeline completo",
+  pipeline_sub:"Cinco etapas — de la recopilación de datos reales a un dashboard interactivo.",
+  stage1_idx:"01 — EXTRACCIÓN", stage1_h3:"Datos reales, verificados",
+  stage1_p:"Sin dataset preexistente (el torneo terminó hace días). Cada uno de los 104 resultados se cruzó contra 8+ fuentes y se validó aritméticamente contra las 12 tablas de grupo oficiales.",
+  stage2_idx:"02 — LIMPIEZA", stage2_h3:"Transformación",
+  stage2_p:"Feature engineering: etapa final alcanzada por equipo, diferencia de gol acumulada, distinción entre 3er y 4to lugar.",
+  stage3_idx:"03 — MODELADO SQL", stage3_h3:"Base relacional",
+  stage3_p:"Esquema en SQLite (equipos, partidos, goleadores). Todo el análisis exploratorio resuelto con SQL puro.",
+  stage4_idx:"04 — MACHINE LEARNING", stage4_h3:"IA aplicada",
+  stage4_p:"Power Ranking compuesto, clustering de perfiles de equipo (KMeans + PCA), y un clasificador que valida si los datos de grupos predicen el avance.",
+  stage5_idx:"05 — VISUALIZACIÓN", stage5_h3:"Este dashboard",
+  stage5_p:"Cromos de jugadores, ranking filtrable, explorador de partidos — sin fotos ni escudos con derechos de autor: solo banderas y datos.",
+  eda_h2:"Análisis exploratorio",
+  eda_sub:"Cada gráfico proviene directamente de una query sobre la base relacional — ver <span class=\"mono\">sql/02_eda_queries.sql</span>.",
+  chart_goals_h3:"Goles: grupos vs. eliminación", chart_goals_sub:"¿Se juega más ofensivo cuando hay margen de error?",
+  chart_confed_h3:"Rendimiento por confederación", chart_confed_sub:"Etapa promedio alcanzada (0=grupos, 8=campeón)",
+  chart_blowouts_h3:"Las 10 mayores goleadas", chart_blowouts_sub:"Diferencia de gol más amplia del torneo",
+  chart_funnel_h3:"El funnel del torneo", chart_funnel_sub:"Cuántos equipos llegaron a cada etapa",
+  chart_hosts_h3:"Selecciones anfitrionas", chart_hosts_sub:"USA, Canadá y México — jugar en casa, ¿alcanza?",
+  chart_drama_h3:"Partidos de infarto", chart_drama_sub:"Definidos por penales o tiempo extra",
+  space_eyebrow:"Machine Learning · Clustering + PCA", space_h2:"El espacio de estilos",
+  space_sub:"Los 48 equipos agrupados por perfil ofensivo/defensivo (KMeans) y proyectados a 2D (PCA). Pasa el mouse sobre los puntos.",
+  scorers_eyebrow:"Top 20 · Datos reales verificados", scorers_h2:"Los goleadores del torneo",
+  scorers_sub:"Bota de Oro y goleadores destacados, cruzados contra 5 fuentes. Sin fotos — cromos generados con banderas e iniciales.",
+  ranking_eyebrow:"Machine Learning · Power Ranking", ranking_h2:"Top 20 selecciones",
+  ranking_sub:"Score compuesto: 50% etapa alcanzada, 20% victorias, 20% diferencia de gol, 10% goles a favor.",
+  th_pos:"#", th_team:"Selección", th_stage:"Etapa final", th_goaldiff:"Dif. gol", th_power:"Power Score",
+  matches_eyebrow:"Los 104 partidos", matches_h2:"Explorador de partidos",
+  matches_sub:"Filtra por fase o grupo para revisar cualquier resultado del torneo.",
+  model_eyebrow:"Machine Learning · Validación", model_h2:"¿Los datos de grupos predicen el avance?",
+  model_sub:"Un Random Forest entrenado sobre puntos y goles de fase de grupos, validado con 5-fold cross-validation (muestra pequeña: 48 equipos).",
+  model_acc_h3:"Accuracy vs. baseline", model_vs:"vs.", model_baseline_label:"(clase mayoritaria)",
+  model_acc_sub:"Random Forest · validación cruzada 5-fold",
+  model_imp_h3:"Importancia de variables", model_imp_sub:"Qué predice mejor el avance a eliminación directa",
+  stack_eyebrow:"Stack técnico", stack_h2:"Herramientas",
+  footer_text:"Portafolio de Data Science · Mundial 2026 (11 jun – 19 jul) · Datos verificados manualmente contra fuentes oficiales · github.com/DxrioM/world_cup_2026",
+  filter_all:"Todas", goals_per_match:" goles/partido",
+  ds_goals_for:"Goles a favor", ds_goals_against:"Goles en contra",
+  drama_decided:"Definidos por penales/T.E.", drama_rest:"Resto del torneo",
+  axis_pca1:"Componente PCA 1", axis_pca2:"Componente PCA 2",
+  cromo_goals:"Goles", cromo_assists:"Asist.",
+  filter_all_stages:"Todas las fases", filter_all_groups:"Todos los grupos", group_prefix:"Grupo ",
+  match_word:"partido", matches_word:"partidos",
+  baseline_label:"Baseline (clase mayoritaria)", rf_label:"Random Forest (CV)",
+  chart_error:"No se pudo cargar este gráfico.", locale:"es",
+},
+en: {
+  brand:"Anatomy of a World Cup",
+  nav_pipeline:"Pipeline", nav_analysis:"Analysis", nav_scorers:"Top Scorers",
+  nav_ranking:"Ranking", nav_matches:"Matches", nav_model:"Model",
+  eyebrow:"Data Science Portfolio · Soccer",
+  hero_title:"Anatomy<br>of a <em>World Cup</em>",
+  hero_sub:"All 104 matches of the 2026 World Cup — verified one by one against the official tables — analyzed with SQL, Python and Machine Learning. A predictive model, a team ranking, and the tournament's top 20 scorers.",
+  stat_matches:"Matches", stat_teams:"Teams", stat_groups:"Groups",
+  stat_hosts:"Host countries", stat_goals:"Total goals", stat_champion:"Champion",
+  pipeline_eyebrow:"Methodology", pipeline_h2:"The full pipeline",
+  pipeline_sub:"Five stages — from real-world data collection to an interactive dashboard.",
+  stage1_idx:"01 — EXTRACTION", stage1_h3:"Real, verified data",
+  stage1_p:"No pre-existing dataset (the tournament ended days ago). Each of the 104 results was cross-checked against 8+ sources and arithmetically validated against the 12 official group tables.",
+  stage2_idx:"02 — CLEANING", stage2_h3:"Transformation",
+  stage2_p:"Feature engineering: final stage reached per team, cumulative goal difference, distinguishing 3rd from 4th place.",
+  stage3_idx:"03 — SQL MODELING", stage3_h3:"Relational database",
+  stage3_p:"SQLite schema (teams, matches, top scorers). All exploratory analysis solved with pure SQL.",
+  stage4_idx:"04 — MACHINE LEARNING", stage4_h3:"Applied AI",
+  stage4_p:"Composite Power Ranking, team-profile clustering (KMeans + PCA), and a classifier that validates whether group-stage data predicts advancement.",
+  stage5_idx:"05 — VISUALIZATION", stage5_h3:"This dashboard",
+  stage5_p:"Player cards, filterable ranking, match explorer — no photos or copyrighted crests: just flags and data.",
+  eda_h2:"Exploratory analysis",
+  eda_sub:"Every chart comes straight from a query on the relational database — see <span class=\"mono\">sql/02_eda_queries.sql</span>.",
+  chart_goals_h3:"Goals: group stage vs. knockout", chart_goals_sub:"Is play more attacking when there's no margin for error?",
+  chart_confed_h3:"Performance by confederation", chart_confed_sub:"Average stage reached (0=group stage, 8=champion)",
+  chart_blowouts_h3:"The 10 biggest blowouts", chart_blowouts_sub:"Widest goal difference of the tournament",
+  chart_funnel_h3:"The tournament funnel", chart_funnel_sub:"How many teams reached each stage",
+  chart_hosts_h3:"Host nations", chart_hosts_sub:"USA, Canada and Mexico — is home advantage enough?",
+  chart_drama_h3:"Nail-biter matches", chart_drama_sub:"Decided by penalties or extra time",
+  space_eyebrow:"Machine Learning · Clustering + PCA", space_h2:"The style space",
+  space_sub:"All 48 teams grouped by offensive/defensive profile (KMeans) and projected to 2D (PCA). Hover over the points.",
+  scorers_eyebrow:"Top 20 · Verified real data", scorers_h2:"The tournament's top scorers",
+  scorers_sub:"Golden Boot and standout scorers, cross-checked against 5 sources. No photos — cards generated with flags and initials.",
+  ranking_eyebrow:"Machine Learning · Power Ranking", ranking_h2:"Top 20 teams",
+  ranking_sub:"Composite score: 50% stage reached, 20% wins, 20% goal difference, 10% goals scored.",
+  th_pos:"#", th_team:"Team", th_stage:"Final stage", th_goaldiff:"Goal diff.", th_power:"Power Score",
+  matches_eyebrow:"All 104 matches", matches_h2:"Match explorer",
+  matches_sub:"Filter by stage or group to check any result from the tournament.",
+  model_eyebrow:"Machine Learning · Validation", model_h2:"Does group-stage data predict advancement?",
+  model_sub:"A Random Forest trained on group-stage points and goals, validated with 5-fold cross-validation (small sample: 48 teams).",
+  model_acc_h3:"Accuracy vs. baseline", model_vs:"vs.", model_baseline_label:"(majority class)",
+  model_acc_sub:"Random Forest · 5-fold cross-validation",
+  model_imp_h3:"Feature importance", model_imp_sub:"What best predicts advancing to the knockout stage",
+  stack_eyebrow:"Tech stack", stack_h2:"Tools",
+  footer_text:"Data Science Portfolio · 2026 World Cup (Jun 11 – Jul 19) · Data manually verified against official sources · github.com/DxrioM/world_cup_2026",
+  filter_all:"All", goals_per_match:" goals/match",
+  ds_goals_for:"Goals for", ds_goals_against:"Goals against",
+  drama_decided:"Decided by penalties/ET", drama_rest:"Rest of the tournament",
+  axis_pca1:"PCA Component 1", axis_pca2:"PCA Component 2",
+  cromo_goals:"Goals", cromo_assists:"Assists",
+  filter_all_stages:"All stages", filter_all_groups:"All groups", group_prefix:"Group ",
+  match_word:"match", matches_word:"matches",
+  baseline_label:"Baseline (majority class)", rf_label:"Random Forest (CV)",
+  chart_error:"This chart could not be loaded.", locale:"en",
+}
+};
+const T = I18N[LANG] || I18N.es;
+
+function applyI18n(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(T[key] !== undefined) el.textContent = T[key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-html');
+    if(T[key] !== undefined) el.innerHTML = T[key];
+  });
+}
+applyI18n();
+
 let EDA={}, TEAM_SPACE=[], TOP20_TEAMS=[], SCORERS=[], MATCHES=[], METRICS={};
 try{
   EDA = JSON.parse(document.getElementById('data-eda').textContent);
@@ -461,7 +549,7 @@ if(typeof Chart !== 'undefined'){
 
 function safeChart(canvasId, config){
   try{
-    if(typeof Chart === 'undefined') throw new Error('Chart.js no disponible');
+    if(typeof Chart === 'undefined') throw new Error('Chart.js unavailable');
     const el = document.getElementById(canvasId);
     if(!el) return null;
     return new Chart(el, config);
@@ -471,7 +559,7 @@ function safeChart(canvasId, config){
     if(el && el.parentNode){
       const msg = document.createElement('div');
       msg.className = 'chart-error';
-      msg.textContent = 'No se pudo cargar este gráfico.';
+      msg.textContent = T.chart_error;
       el.parentNode.replaceChild(msg, el);
     }
     return null;
@@ -488,20 +576,18 @@ function baseOpts(extra){
   }, extra||{});
 }
 
-// ---------- HERO STAT ----------
 try{
   const totalGoals = MATCHES.reduce((s,m)=>s+m.total_goles, 0);
   document.getElementById('stat-goals').textContent = totalGoals;
 }catch(e){ console.error(e); }
 
-// ---------- EDA CHARTS ----------
 safeChart('chart-goals-phase', {
   type:'bar',
   data:{
     labels:(EDA.goles_por_fase||[]).map(d=>d.tipo_fase),
     datasets:[{data:(EDA.goles_por_fase||[]).map(d=>d.goles_promedio_por_partido), backgroundColor:['#E0B23D','#C4453F'], borderRadius:6, barThickness:70}]
   },
-  options: baseOpts({plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.raw+' goles/partido'}}}})
+  options: baseOpts({plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.raw+T.goals_per_match}}}})
 });
 
 safeChart('chart-confed', {
@@ -536,8 +622,8 @@ safeChart('chart-hosts', {
   data:{
     labels:(EDA.anfitriones||[]).map(d=>d.team),
     datasets:[
-      {label:'Goles a favor', data:(EDA.anfitriones||[]).map(d=>d.goles_favor), backgroundColor:'#E0B23D'},
-      {label:'Goles en contra', data:(EDA.anfitriones||[]).map(d=>d.goles_contra), backgroundColor:'#C4453F'},
+      {label:T.ds_goals_for, data:(EDA.anfitriones||[]).map(d=>d.goles_favor), backgroundColor:'#E0B23D'},
+      {label:T.ds_goals_against, data:(EDA.anfitriones||[]).map(d=>d.goles_contra), backgroundColor:'#C4453F'},
     ]
   },
   options: baseOpts({plugins:{legend:{display:true, position:'bottom', labels:{boxWidth:10,padding:12}}}})
@@ -546,13 +632,12 @@ safeChart('chart-hosts', {
 safeChart('chart-drama', {
   type:'doughnut',
   data:{
-    labels:['Definidos por penales/T.E.', 'Resto del torneo'],
+    labels:[T.drama_decided, T.drama_rest],
     datasets:[{data:[(EDA.penales_tiempo_extra||[]).length, 104-(EDA.penales_tiempo_extra||[]).length], backgroundColor:['#E0B23D','#1b422e'], borderColor:'#0e2919', borderWidth:3}]
   },
   options:{responsive:true, plugins:{legend:{position:'bottom', labels:{padding:14, boxWidth:10}}}}
 });
 
-// ---------- ESPACIO DE EQUIPOS (PCA) ----------
 (function(){
   try{
     const clusters = {};
@@ -575,8 +660,8 @@ safeChart('chart-drama', {
           return `${m.bandera} ${m.team} — ${m.etapa_final} (${m.goles_favor}-${m.goles_contra})`;
         }}}},
         scales:{
-          x:{grid:{color:GRID}, ticks:{display:false}, title:{display:true,text:'Componente PCA 1',color:TXT2}},
-          y:{grid:{color:GRID}, ticks:{display:false}, title:{display:true,text:'Componente PCA 2',color:TXT2}}
+          x:{grid:{color:GRID}, ticks:{display:false}, title:{display:true,text:T.axis_pca1,color:TXT2}},
+          y:{grid:{color:GRID}, ticks:{display:false}, title:{display:true,text:T.axis_pca2,color:TXT2}}
         }
       }
     });
@@ -590,7 +675,6 @@ safeChart('chart-drama', {
   }catch(e){ console.error(e); }
 })();
 
-// ---------- CROMOS DE GOLEADORES (con filtro) ----------
 (function(){
   const grid = document.getElementById('cromo-grid');
   const filterBar = document.getElementById('scorer-filters');
@@ -611,17 +695,17 @@ safeChart('chart-drama', {
         <div class="name">${p.jugador}</div>
         <div class="team">${p.equipo}</div>
         <div class="stats">
-          <div class="stat"><div class="v">${p.goles}</div><div class="k">Goles</div></div>
-          <div class="stat"><div class="v">${p.asistencias||0}</div><div class="k">Asist.</div></div>
+          <div class="stat"><div class="v">${p.goles}</div><div class="k">${T.cromo_goals}</div></div>
+          <div class="stat"><div class="v">${p.asistencias||0}</div><div class="k">${T.cromo_assists}</div></div>
         </div>
       `;
       grid.appendChild(card);
     });
   }
 
-  const confeds = ['Todas', ...new Set(SCORERS.map(p=>{
+  const confeds = [T.filter_all, ...new Set(SCORERS.map(p=>{
     const t = TEAM_SPACE.find(t=>t.team === p.equipo);
-    return t ? t.confederacion : 'Otra';
+    return t ? t.confederacion : 'Other';
   }))];
   filterBar.innerHTML = '';
   confeds.forEach((c,i)=>{
@@ -631,7 +715,7 @@ safeChart('chart-drama', {
     btn.addEventListener('click', ()=>{
       filterBar.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      if(c === 'Todas') renderCromos(SCORERS);
+      if(c === T.filter_all) renderCromos(SCORERS);
       else renderCromos(SCORERS.filter(p=>{
         const t = TEAM_SPACE.find(t=>t.team === p.equipo);
         return t && t.confederacion === c;
@@ -642,7 +726,6 @@ safeChart('chart-drama', {
   renderCromos(SCORERS);
 })();
 
-// ---------- POWER RANKING (con filtro) ----------
 (function(){
   const tbody = document.getElementById('ranking-tbody');
   const filterBar = document.getElementById('team-filters');
@@ -665,7 +748,7 @@ safeChart('chart-drama', {
     });
   }
 
-  const confeds = ['Todas', ...new Set(TOP20_TEAMS.map(t=>t.confederacion))];
+  const confeds = [T.filter_all, ...new Set(TOP20_TEAMS.map(t=>t.confederacion))];
   filterBar.innerHTML = '';
   confeds.forEach((c,i)=>{
     const btn = document.createElement('button');
@@ -674,7 +757,7 @@ safeChart('chart-drama', {
     btn.addEventListener('click', ()=>{
       filterBar.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      if(c === 'Todas') renderRanking(TOP20_TEAMS);
+      if(c === T.filter_all) renderRanking(TOP20_TEAMS);
       else renderRanking(TOP20_TEAMS.filter(t=>t.confederacion === c));
     });
     filterBar.appendChild(btn);
@@ -682,7 +765,6 @@ safeChart('chart-drama', {
   renderRanking(TOP20_TEAMS);
 })();
 
-// ---------- EXPLORADOR DE PARTIDOS (con filtros) ----------
 (function(){
   const list = document.getElementById('match-list');
   const countEl = document.getElementById('match-count');
@@ -690,27 +772,27 @@ safeChart('chart-drama', {
   const grupoSelect = document.getElementById('filter-grupo');
   if(!list) return;
 
-  const fases = ['Todas las fases', ...new Set(MATCHES.map(m=>m.fase))];
+  const fases = [T.filter_all_stages, ...new Set(MATCHES.map(m=>m.fase))];
   faseSelect.innerHTML = fases.map(f=>`<option value="${f}">${f}</option>`).join('');
 
   const gruposUnicos = [...new Set(MATCHES.filter(m=>m.grupo).map(m=>m.grupo))].sort();
-  const grupos = ['Todos los grupos', ...gruposUnicos];
-  grupoSelect.innerHTML = grupos.map(g=>`<option value="${g}">${g === 'Todos los grupos' ? g : 'Grupo ' + g}</option>`).join('');
+  const grupos = [T.filter_all_groups, ...gruposUnicos];
+  grupoSelect.innerHTML = grupos.map(g=>`<option value="${g}">${g === T.filter_all_groups ? g : T.group_prefix + g}</option>`).join('');
 
   function renderMatches(){
     const fase = faseSelect.value;
     const grupo = grupoSelect.value;
     let filtered = MATCHES;
-    if(fase !== 'Todas las fases') filtered = filtered.filter(m=>m.fase === fase);
-    if(grupo !== 'Todos los grupos') filtered = filtered.filter(m=>m.grupo === grupo);
+    if(fase !== T.filter_all_stages) filtered = filtered.filter(m=>m.fase === fase);
+    if(grupo !== T.filter_all_groups) filtered = filtered.filter(m=>m.grupo === grupo);
 
-    countEl.textContent = `${filtered.length} partido${filtered.length===1?'':'s'}`;
+    countEl.textContent = `${filtered.length} ${filtered.length===1?T.match_word:T.matches_word}`;
     list.innerHTML = '';
     filtered.forEach(m=>{
       const row = document.createElement('div');
       row.className = 'match-row';
       row.innerHTML = `
-        <div class="fase-tag">${m.grupo ? 'Grupo '+m.grupo : m.fase}</div>
+        <div class="fase-tag">${m.grupo ? T.group_prefix+m.grupo : m.fase}</div>
         <div class="team-name">${m.bandera_local||''} ${m.local}</div>
         <div class="score">${m.goles_local} - ${m.goles_visitante}</div>
         <div class="team-name">${m.bandera_visitante||''} ${m.visitante}</div>
@@ -724,7 +806,6 @@ safeChart('chart-drama', {
   renderMatches();
 })();
 
-// ---------- MODELO ----------
 try{
   const acc = METRICS.cv_accuracy_mean || 0;
   const base = METRICS.baseline_majority_class || 0;
@@ -734,7 +815,7 @@ try{
   safeChart('chart-acc', {
     type:'bar',
     data:{
-      labels:['Baseline (clase mayoritaria)', 'Random Forest (CV)'],
+      labels:[T.baseline_label, T.rf_label],
       datasets:[{data:[base*100, acc*100], backgroundColor:['#2c5b41','#9BC24A'], borderRadius:6, barThickness:60}]
     },
     options: baseOpts({plugins:{legend:{display:false}, tooltip:{callbacks:{label:c=>c.raw.toFixed(1)+'%'}}}, scales:{y:{max:100,grid:{color:GRID}}, x:{grid:{display:false}}}})

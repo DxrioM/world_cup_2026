@@ -2,11 +2,11 @@
 
 Pipeline de datos de extremo a extremo sobre los **104 partidos del Mundial 2026**: extracción y verificación manual de datos (el torneo terminó apenas unos días antes de este proyecto), modelado relacional en SQL, machine learning (power ranking, clustering, clasificador predictivo) y un dashboard interactivo con tema de fútbol.
 
-**🔴 Demo en vivo:** [https://dxriom.github.io/world_cup_2026/](https://dxriom.github.io/world_cup_2026/) *(una vez activado GitHub Pages)*
+**🔴 Demo en vivo:** [Español](https://dxriom.github.io/world_cup_2026/) · [English](https://dxriom.github.io/world_cup_2026/dashboard_en.html)
 
 **📁 Repositorio:** [github.com/DxrioM/world_cup_2026](https://github.com/DxrioM/world_cup_2026)
 
-Sin conexión o mientras Pages no esté activo: [docs/index.html](docs/index.html)
+Sin conexión: [docs/index.html](docs/index.html) (ES) · [docs/dashboard_en.html](docs/dashboard_en.html) (EN)
 
 ---
 
@@ -36,11 +36,14 @@ worldcup_portfolio/
 │   ├── 03_run_eda.py                # ejecuta las queries SQL → JSON
 │   ├── 04_ml_analysis.py            # power ranking, KMeans, PCA, clasificador
 │   ├── 05_export_json.py            # exporta tablas adicionales a JSON
-│   └── 06_build_dashboard.py        # inyecta datos + Chart.js en la plantilla
+│   ├── 07_translate_exports.py      # genera las etiquetas categóricas en inglés
+│   └── 08_build_dashboards.py       # inyecta datos + Chart.js en las plantillas ES/EN
 ├── lib/
 │   ├── chart.umd.min.js             # Chart.js empaquetado localmente
-│   └── dashboard_template.html      # plantilla del dashboard
-├── docs/index.html                  # ⭐ producto final, listo para GitHub Pages
+│   └── dashboard_template_i18n.html # plantilla bilingüe (i18n vía data-i18n)
+├── docs/
+│   ├── index.html                   # ⭐ producto final en Español
+│   └── dashboard_en.html            # ⭐ producto final en Inglés
 └── README.md
 ```
 
@@ -54,8 +57,9 @@ python3 02_load_db.py
 python3 03_run_eda.py
 python3 04_ml_analysis.py
 python3 05_export_json.py
-python3 06_build_dashboard.py
-cp ../outputs/index.html ../docs/
+python3 07_translate_exports.py
+python3 08_build_dashboards.py
+cp ../outputs/*.html ../docs/
 ```
 
 ## Metodología del Power Ranking (Top 20 equipos)
