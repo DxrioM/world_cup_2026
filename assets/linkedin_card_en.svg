@@ -1,0 +1,57 @@
+<svg viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#E0B23D"/>
+    <stop offset="100%" stop-color="#C4453F"/>
+  </linearGradient>
+</defs>
+<rect width="1080" height="1350" fill="#0e2919"/>
+
+<!-- pitch arc motif (mismo elemento del dashboard) -->
+<circle cx="1040" cy="40" r="210" fill="none" stroke="rgba(242,239,227,0.06)" stroke-width="2"/>
+<circle cx="1040" cy="40" r="150" fill="none" stroke="rgba(242,239,227,0.05)" stroke-width="2"/>
+
+<text x="80" y="95" font-family="DejaVu Sans" font-size="24" font-weight="bold" letter-spacing="2.5" fill="#E0B23D">DATA SCIENCE PORTFOLIO · SOCCER</text>
+
+<text x="76" y="185" font-family="DejaVu Sans" font-size="82" font-weight="bold" fill="#F2EFE3">Anatomy of</text>
+<text x="76" y="270" font-family="DejaVu Sans" font-size="82" font-weight="bold" fill="url(#titleGrad)">a World Cup</text>
+
+<!-- scoreboard strip, como el hero del dashboard -->
+<g transform="translate(80,330)">
+
+  <rect x="0.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
+  <text x="115.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">48</text>
+  <text x="115.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">TEAMS</text>
+
+  <rect x="230.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
+  <text x="345.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">12</text>
+  <text x="345.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">GROUPS</text>
+
+  <rect x="460.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
+  <text x="575.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">3</text>
+  <text x="575.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">HOSTS</text>
+
+  <rect x="690.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
+  <text x="805.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">🇪🇸</text>
+  <text x="805.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">CHAMPION</text>
+</g>
+
+<rect x="80" y="470" width="8" height="130" rx="4" fill="#E0B23D"/>
+<text x="115" y="560" font-family="DejaVu Sans Mono" font-size="60" font-weight="bold" fill="#F2EFE3">104</text>
+<text x="440" y="500" font-family="DejaVu Sans" font-size="26" fill="#A7C4AE"><tspan x="440" dy="0">matches analyzed and</tspan><tspan x="440" dy="32">manually verified</tspan></text>
+
+<rect x="80" y="645" width="8" height="130" rx="4" fill="#C4453F"/>
+<text x="115" y="735" font-family="DejaVu Sans Mono" font-size="60" font-weight="bold" fill="#F2EFE3">97.8%</text>
+<text x="440" y="675" font-family="DejaVu Sans" font-size="26" fill="#A7C4AE"><tspan x="440" dy="0">accuracy predicting advancement</tspan><tspan x="440" dy="32">(vs. 66.7% baseline)</tspan></text>
+
+<rect x="80" y="820" width="8" height="130" rx="4" fill="#3E90B0"/>
+<text x="115" y="910" font-family="DejaVu Sans Mono" font-size="60" font-weight="bold" fill="#F2EFE3">20</text>
+<text x="440" y="850" font-family="DejaVu Sans" font-size="26" fill="#A7C4AE"><tspan x="440" dy="0">scorers and teams in</tspan><tspan x="440" dy="32">AI-powered rankings</tspan></text>
+
+<rect x="80" y="1005" width="920" height="1" fill="#2c5b41"/>
+<text x="80" y="1060" font-family="DejaVu Sans Mono" font-size="21" fill="#6E8F77">Python · scikit-learn · SQL · SQLite · Chart.js</text>
+
+<rect x="80" y="1095" width="920" height="80" rx="12" fill="#1b422e" stroke="#2c5b41"/>
+<text x="540.0" y="1140" font-family="DejaVu Sans" font-size="28" font-weight="bold" fill="#F2EFE3" text-anchor="middle">Interactive demo + full code →</text>
+<text x="540.0" y="1167" font-family="DejaVu Sans Mono" font-size="18" fill="#E0B23D" text-anchor="middle">link in the post · ES / EN</text>
+</svg>
