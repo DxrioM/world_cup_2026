@@ -1,4 +1,4 @@
-<svg viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 1080 1350" xmlns="http://www.w3.org/2000/svg" font-family="DejaVu Sans">
 <defs>
   <linearGradient id="titleGrad" x1="0%" y1="0%" x2="100%" y2="0%">
     <stop offset="0%" stop-color="#E0B23D"/>
@@ -7,51 +7,62 @@
 </defs>
 <rect width="1080" height="1350" fill="#0e2919"/>
 
-<!-- pitch arc motif (mismo elemento del dashboard) -->
-<circle cx="1040" cy="40" r="210" fill="none" stroke="rgba(242,239,227,0.06)" stroke-width="2"/>
-<circle cx="1040" cy="40" r="150" fill="none" stroke="rgba(242,239,227,0.05)" stroke-width="2"/>
-
-<text x="80" y="95" font-family="DejaVu Sans" font-size="24" font-weight="bold" letter-spacing="2.5" fill="#E0B23D">PORTAFOLIO DE DATA SCIENCE · FÚTBOL</text>
-
-<text x="76" y="185" font-family="DejaVu Sans" font-size="82" font-weight="bold" fill="#F2EFE3">Radiografía</text>
-<text x="76" y="270" font-family="DejaVu Sans" font-size="82" font-weight="bold" fill="url(#titleGrad)">de un Mundial</text>
-
-<!-- scoreboard strip, como el hero del dashboard -->
-<g transform="translate(80,330)">
-
-  <rect x="0.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
-  <text x="115.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">48</text>
-  <text x="115.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">EQUIPOS</text>
-
-  <rect x="230.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
-  <text x="345.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">12</text>
-  <text x="345.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">GRUPOS</text>
-
-  <rect x="460.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
-  <text x="575.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">3</text>
-  <text x="575.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">SEDES</text>
-
-  <rect x="690.0" y="0" width="228.0" height="90" fill="#1b422e" stroke="#2c5b41"/>
-  <text x="805.0" y="45" font-family="DejaVu Sans Mono" font-size="28" font-weight="bold" fill="#E0B23D" text-anchor="middle">🇪🇸</text>
-  <text x="805.0" y="70" font-family="DejaVu Sans" font-size="12" fill="#A7C4AE" text-anchor="middle" letter-spacing="1">CAMPEÓN</text>
+<g stroke="rgba(242,239,227,0.07)" stroke-width="2.5" fill="none">
+  <rect x="40" y="40" width="1000" height="1270" rx="4"/>
+  <line x1="40" y1="540.0" x2="1040" y2="540.0"/>
+  <circle cx="540.0" cy="540.0" r="130"/>
+  <circle cx="540.0" cy="540.0" r="4" fill="rgba(242,239,227,0.10)"/>
+  <rect x="320.0" y="40" width="440" height="130"/>
+  <rect x="420.0" y="40" width="240" height="55"/>
+  <rect x="320.0" y="1180" width="440" height="130"/>
+  <rect x="420.0" y="1255" width="240" height="55"/>
+  <path d="M 40 100 A 60 60 0 0 0 100 40"/>
+  <path d="M 980 40 A 60 60 0 0 0 1040 100"/>
+  <path d="M 40 1250 A 60 60 0 0 1 100 1310"/>
+  <path d="M 980 1310 A 60 60 0 0 1 1040 1250"/>
 </g>
 
-<rect x="80" y="470" width="8" height="130" rx="4" fill="#E0B23D"/>
-<text x="115" y="560" font-family="DejaVu Sans Mono" font-size="60" font-weight="bold" fill="#F2EFE3">104</text>
-<text x="440" y="500" font-family="DejaVu Sans" font-size="26" fill="#A7C4AE"><tspan x="440" dy="0">partidos analizados y</tspan><tspan x="440" dy="32">verificados manualmente</tspan></text>
 
-<rect x="80" y="645" width="8" height="130" rx="4" fill="#C4453F"/>
-<text x="115" y="735" font-family="DejaVu Sans Mono" font-size="60" font-weight="bold" fill="#F2EFE3">97.8%</text>
-<text x="440" y="675" font-family="DejaVu Sans" font-size="26" fill="#A7C4AE"><tspan x="440" dy="0">accuracy prediciendo avance</tspan><tspan x="440" dy="32">(vs. 66.7% del azar)</tspan></text>
+<text x="80" y="98" font-size="23" font-weight="bold" letter-spacing="2.2" fill="#E0B23D">PORTAFOLIO DE DATA SCIENCE · FÚTBOL</text>
+<text x="76" y="182" font-size="76" font-weight="bold" fill="#F2EFE3">Radiografía</text>
+<text x="76" y="262" font-size="76" font-weight="bold" fill="url(#titleGrad)">de un Mundial</text>
 
-<rect x="80" y="820" width="8" height="130" rx="4" fill="#3E90B0"/>
-<text x="115" y="910" font-family="DejaVu Sans Mono" font-size="60" font-weight="bold" fill="#F2EFE3">20</text>
-<text x="440" y="850" font-family="DejaVu Sans" font-size="26" fill="#A7C4AE"><tspan x="440" dy="0">goleadores y equipos en</tspan><tspan x="440" dy="32">rankings con IA</tspan></text>
+<circle cx="115" cy="348" r="26" fill="#F2EFE3"/>
+<path d="M115.0,337.1 L100.9,328.6 A23.9,23.9 0 0,1 129.1,328.6 Z" fill="#0e2919" opacity="0.85"/><path d="M125.4,344.6 L129.1,328.6 A23.9,23.9 0 0,1 137.7,355.4 Z" fill="#0e2919" opacity="0.85"/><path d="M121.4,356.8 L137.7,355.4 A23.9,23.9 0 0,1 115.0,371.9 Z" fill="#0e2919" opacity="0.85"/><path d="M108.6,356.8 L115.0,371.9 A23.9,23.9 0 0,1 92.3,355.4 Z" fill="#0e2919" opacity="0.85"/><path d="M104.6,344.6 L92.3,355.4 A23.9,23.9 0 0,1 100.9,328.6 Z" fill="#0e2919" opacity="0.85"/>
+<path d="M115.0,337.1 L125.4,344.6 L121.4,356.8 L108.6,356.8 L104.6,344.6 Z" fill="#0e2919"/>
+<circle cx="115" cy="348" r="26" fill="none" stroke="#0e2919" stroke-width="1.56"/>
+<text x="168" y="334" font-size="24" fill="#F2EFE3"><tspan x="168" dy="0">104 partidos analizados y verificados</tspan><tspan x="168" dy="30">matemáticamente contra las 12 tablas oficiales</tspan><tspan x="168" dy="30">de grupo</tspan></text>
 
-<rect x="80" y="1005" width="920" height="1" fill="#2c5b41"/>
-<text x="80" y="1060" font-family="DejaVu Sans Mono" font-size="21" fill="#6E8F77">Python · scikit-learn · SQL · SQLite · Chart.js</text>
+<circle cx="115" cy="476" r="26" fill="#F2EFE3"/>
+<path d="M115.0,465.1 L100.9,456.6 A23.9,23.9 0 0,1 129.1,456.6 Z" fill="#0e2919" opacity="0.85"/><path d="M125.4,472.6 L129.1,456.6 A23.9,23.9 0 0,1 137.7,483.4 Z" fill="#0e2919" opacity="0.85"/><path d="M121.4,484.8 L137.7,483.4 A23.9,23.9 0 0,1 115.0,499.9 Z" fill="#0e2919" opacity="0.85"/><path d="M108.6,484.8 L115.0,499.9 A23.9,23.9 0 0,1 92.3,483.4 Z" fill="#0e2919" opacity="0.85"/><path d="M104.6,472.6 L92.3,483.4 A23.9,23.9 0 0,1 100.9,456.6 Z" fill="#0e2919" opacity="0.85"/>
+<path d="M115.0,465.1 L125.4,472.6 L121.4,484.8 L108.6,484.8 L104.6,472.6 Z" fill="#0e2919"/>
+<circle cx="115" cy="476" r="26" fill="none" stroke="#0e2919" stroke-width="1.56"/>
+<text x="168" y="462" font-size="24" fill="#F2EFE3"><tspan x="168" dy="0">CONMEBOL: con solo 6 selecciones, alcanzó en</tspan><tspan x="168" dy="30">promedio la misma etapa que confederaciones con</tspan><tspan x="168" dy="30">el triple de equipos</tspan></text>
 
-<rect x="80" y="1095" width="920" height="80" rx="12" fill="#1b422e" stroke="#2c5b41"/>
-<text x="540.0" y="1140" font-family="DejaVu Sans" font-size="28" font-weight="bold" fill="#F2EFE3" text-anchor="middle">Demo interactivo + código completo →</text>
-<text x="540.0" y="1167" font-family="DejaVu Sans Mono" font-size="18" fill="#E0B23D" text-anchor="middle">link en el post · ES / EN</text>
+<circle cx="115" cy="604" r="26" fill="#F2EFE3"/>
+<path d="M115.0,593.1 L100.9,584.6 A23.9,23.9 0 0,1 129.1,584.6 Z" fill="#0e2919" opacity="0.85"/><path d="M125.4,600.6 L129.1,584.6 A23.9,23.9 0 0,1 137.7,611.4 Z" fill="#0e2919" opacity="0.85"/><path d="M121.4,612.8 L137.7,611.4 A23.9,23.9 0 0,1 115.0,627.9 Z" fill="#0e2919" opacity="0.85"/><path d="M108.6,612.8 L115.0,627.9 A23.9,23.9 0 0,1 92.3,611.4 Z" fill="#0e2919" opacity="0.85"/><path d="M104.6,600.6 L92.3,611.4 A23.9,23.9 0 0,1 100.9,584.6 Z" fill="#0e2919" opacity="0.85"/>
+<path d="M115.0,593.1 L125.4,600.6 L121.4,612.8 L108.6,612.8 L104.6,600.6 Z" fill="#0e2919"/>
+<circle cx="115" cy="604" r="26" fill="none" stroke="#0e2919" stroke-width="1.56"/>
+<text x="168" y="590" font-size="24" fill="#F2EFE3"><tspan x="168" dy="0">8 de 104 partidos (7.7%) se definieron por</tspan><tspan x="168" dy="30">penales o tiempo extra</tspan></text>
+
+<circle cx="115" cy="732" r="26" fill="#F2EFE3"/>
+<path d="M115.0,721.1 L100.9,712.6 A23.9,23.9 0 0,1 129.1,712.6 Z" fill="#0e2919" opacity="0.85"/><path d="M125.4,728.6 L129.1,712.6 A23.9,23.9 0 0,1 137.7,739.4 Z" fill="#0e2919" opacity="0.85"/><path d="M121.4,740.8 L137.7,739.4 A23.9,23.9 0 0,1 115.0,755.9 Z" fill="#0e2919" opacity="0.85"/><path d="M108.6,740.8 L115.0,755.9 A23.9,23.9 0 0,1 92.3,739.4 Z" fill="#0e2919" opacity="0.85"/><path d="M104.6,728.6 L92.3,739.4 A23.9,23.9 0 0,1 100.9,712.6 Z" fill="#0e2919" opacity="0.85"/>
+<path d="M115.0,721.1 L125.4,728.6 L121.4,740.8 L108.6,740.8 L104.6,728.6 Z" fill="#0e2919"/>
+<circle cx="115" cy="732" r="26" fill="none" stroke="#0e2919" stroke-width="1.56"/>
+<text x="168" y="718" font-size="24" fill="#F2EFE3"><tspan x="168" dy="0">Modelo predictivo con 97.8% de accuracy</tspan><tspan x="168" dy="30">anticipando el avance a octavos (vs. 66.7% del</tspan><tspan x="168" dy="30">azar)</tspan></text>
+
+<rect x="80" y="862" width="920" height="151" rx="10" fill="#1b422e" stroke="#E0B23D" stroke-width="1.5"/>
+
+<circle cx="120" cy="904" r="20" fill="#E0B23D"/>
+<path d="M120.0,895.6 L109.2,889.1 A18.4,18.4 0 0,1 130.8,889.1 Z" fill="#0e2919" opacity="0.85"/><path d="M128.0,901.4 L130.8,889.1 A18.4,18.4 0 0,1 137.5,909.7 Z" fill="#0e2919" opacity="0.85"/><path d="M124.9,910.8 L137.5,909.7 A18.4,18.4 0 0,1 120.0,922.4 Z" fill="#0e2919" opacity="0.85"/><path d="M115.1,910.8 L120.0,922.4 A18.4,18.4 0 0,1 102.5,909.7 Z" fill="#0e2919" opacity="0.85"/><path d="M112.0,901.4 L102.5,909.7 A18.4,18.4 0 0,1 109.2,889.1 Z" fill="#0e2919" opacity="0.85"/>
+<path d="M120.0,895.6 L128.0,901.4 L124.9,910.8 L115.1,910.8 L112.0,901.4 Z" fill="#0e2919"/>
+<circle cx="120" cy="904" r="20" fill="none" stroke="#0e2919" stroke-width="1.2"/>
+
+<text x="160" y="897" font-size="16" font-weight="bold" letter-spacing="1.5" fill="#E0B23D">INSIGHT</text>
+<text x="120" y="930" font-size="21" fill="#A7C4AE"><tspan x="120" dy="0">Se anotaron más goles en fase de grupos (2.99/partido) que en</tspan><tspan x="120" dy="27">eliminación directa (2.88) — el miedo a perder pesa más que</tspan><tspan x="120" dy="27">las ganas de anotar cuando es todo o nada.</tspan></text>
+
+<text x="80" y="1057" font-family="DejaVu Sans Mono" font-size="19" fill="#6E8F77">Python · scikit-learn · SQL · SQLite · Chart.js</text>
+<rect x="80" y="1081" width="920" height="76" rx="12" fill="#1b422e" stroke="#2c5b41"/>
+<text x="540.0" y="1123" font-size="25" font-weight="bold" fill="#F2EFE3" text-anchor="middle">Demo interactivo + código completo →</text>
+<text x="540.0" y="1148" font-family="DejaVu Sans Mono" font-size="16" fill="#E0B23D" text-anchor="middle">link en el post · ES / EN</text>
 </svg>
